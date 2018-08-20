@@ -1,12 +1,14 @@
 package com.es.phoneshop.web;
 
+import com.es.phoneshop.model.ArrayListProductDao;
+import com.es.phoneshop.model.Product;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ProductListServlet extends HttpServlet {
     private ArrayListProductDao arrayListProductDao = ArrayListProductDao.getInstance();
