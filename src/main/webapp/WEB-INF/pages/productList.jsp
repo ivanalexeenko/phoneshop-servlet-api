@@ -8,20 +8,22 @@
 <table>
   <thead>
     <tr>
-      <td>Image</td>
-      <td>Brand</td>
-      <td>Name</td>
+      <td>Id</td>
+      <td>Code</td>
+      <td>Description</td>
       <td>Price</td>
+      <td>Currency</td>
+      <td>Stock</td>
     </tr>
   </thead>
   <c:forEach var="product" items="${products}">
     <tr>
-      <td>
-        <img src="https://raw.githubusercontent.com/andrewosipenko/phoneshop-ext-images/master/${product.imageUrl}">
-      </td>
-      <td>${product.brand}</td>
-      <td>${product.model}</td>
-      <td>$ ${product.price}</td>
+      <td>${product.getId()}</td>
+      <td>${product.getCode()}</td>
+      <td>${product.getDescription()}</td>
+      <td>${product.getPrice()}</td>
+      <td>${product.getCurrency()}</td>
+      <td>${product.getStock()}</td>
     </tr>
   </c:forEach>
 </table>
