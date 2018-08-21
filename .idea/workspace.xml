@@ -6,7 +6,10 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="98bc8bfb-e345-482c-a72a-75394b275ba0" name="Default Changelist" comment="" />
+    <list default="true" id="98bc8bfb-e345-482c-a72a-75394b275ba0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/es/phoneshop/model/ArrayListProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/es/phoneshop/model/ArrayListProductDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/es/phoneshop/web/ProductListServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/es/phoneshop/web/ProductListServlet.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -66,14 +69,23 @@
     <session id="1005251348">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.opened" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open" />
       <usages-collector id="statistics.file.extensions.open" />
-      <usages-collector id="statistics.file.extensions.edit" />
-      <usages-collector id="statistics.file.types.edit" />
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="java" value="89" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="89" />
+        </counts>
+      </usages-collector>
       <usages-collector id="statistics.spring.boot.run.usages" />
       <usages-collector id="statistics.js.language.service.starts" />
       <usages-collector id="statistics.spring.boot.mvc.usages" />
@@ -82,10 +94,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/es/phoneshop/web/Product.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/es/phoneshop/model/Product.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="22" column="105" selection-start-line="22" selection-start-column="105" selection-end-line="22" selection-end-column="105" />
+            <state relative-caret-position="211">
+              <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -103,10 +115,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/es/phoneshop/web/ProductDao.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/es/phoneshop/model/ProductDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="29" selection-start-column="29" selection-end-column="29" />
+            <state relative-caret-position="170">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
             </state>
           </provider>
         </entry>
@@ -115,16 +127,16 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/es/phoneshop/web/ProductListServlet.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
-              <caret line="18" selection-start-line="18" selection-end-line="18" />
+              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/es/phoneshop/web/ArrayListProductDao.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/es/phoneshop/model/ArrayListProductDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="430">
-              <caret line="41" column="51" selection-start-line="41" selection-start-column="51" selection-end-line="41" selection-end-column="51" />
+            <state relative-caret-position="170">
+              <caret line="10" column="28" lean-forward="true" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -150,11 +162,13 @@
       <list>
         <option value="$PROJECT_DIR$/run.bat" />
         <option value="$PROJECT_DIR$/src/main/java/com/es/phoneshop/web/ProductDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/es/phoneshop/web/ProductListServlet.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/productList.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/es/phoneshop/web/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/es/phoneshop/web/Product.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/es/phoneshop/web/ArrayListProductDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/es/phoneshop/web/model/ArrayListProductDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/es/phoneshop/web/ProductListServlet.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/es/phoneshop/model/ArrayListProductDao.java" />
       </list>
     </option>
   </component>
@@ -171,7 +185,7 @@
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="311" />
     <option name="y" value="48" />
     <option name="width" value="1616" />
@@ -215,6 +229,24 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="phoneshop" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phoneshop-servlet-api" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phoneshop-servlet-api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="phoneshop" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="phoneshop-servlet-api" type="b2602c69:ProjectViewProjectNode" />
+              <item name="phoneshop-servlet-api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="phoneshop" type="462c0819:PsiDirectoryNode" />
               <item name="web" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -235,7 +267,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1534778505504" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1534842636284" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -377,12 +409,12 @@
       <workItem from="1534430615635" duration="2117000" />
       <workItem from="1534539178510" duration="22853000" />
       <workItem from="1534761514151" duration="4402000" />
-      <workItem from="1534767882097" duration="908000" />
+      <workItem from="1534767882097" duration="2303000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30280000" />
+    <option name="totallyTimeSpent" value="31675000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -395,8 +427,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49919224" visible="true" weight="0.21428572" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49919224" visible="true" weight="0.21428572" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -407,7 +440,7 @@
       <window_info anchor="bottom" id="Messages" order="0" weight="0.32936078" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" />
-      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49946696" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49946696" weight="0.32936078" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -481,16 +514,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/es/phoneshop/web/Main.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/es/phoneshop/web/Product.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="22" column="105" selection-start-line="22" selection-start-column="105" selection-end-line="22" selection-end-column="105" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/productList.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -498,24 +521,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/es/phoneshop/web/ProductDao.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/es/phoneshop/model/Product.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="29" selection-start-column="29" selection-end-column="29" />
+        <state relative-caret-position="211">
+          <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/es/phoneshop/web/ProductListServlet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/es/phoneshop/web/ArrayListProductDao.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/es/phoneshop/model/ProductDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="41" column="51" selection-start-line="41" selection-start-column="51" selection-end-line="41" selection-end-column="51" />
+        <state relative-caret-position="170">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/es/phoneshop/model/ArrayListProductDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="28" lean-forward="true" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

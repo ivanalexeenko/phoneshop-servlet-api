@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class ArrayListProductDao implements ProductDao {
     private static Long currentId = 0L;
     private List<Product> products;
-    private static ArrayListProductDao instance = null;
+    private static volatile ArrayListProductDao instance;
 
     private ArrayListProductDao() {
         this.products = new ArrayList<Product>();
@@ -19,7 +19,11 @@ public class ArrayListProductDao implements ProductDao {
 
     public static ArrayListProductDao getInstance() {
         if(instance == null) {
-            instance = new ArrayListProductDao();
+            synchronized (ArrayListProductDao.class) {
+                if(instance == null) {
+                    instance = new ArrayListProductDao();
+                }
+            }
         }
         return instance;
     }
