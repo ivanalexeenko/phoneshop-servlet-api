@@ -1,5 +1,6 @@
 package com.es.phoneshop;
 
+<<<<<<< HEAD
 import com.es.phoneshop.exception.ProductNotFoundException;
 import com.es.phoneshop.model.ArrayListProductDao;
 import com.es.phoneshop.model.Product;
@@ -145,4 +146,7 @@ public class ArrayListProductDaoTest {
     private void createProduct(Integer index) {
         productArray[index] = new Product(codes[index],descriptions[index],prices[index],Currency.getInstance(Locale.getDefault()),stockArray[index]);
     }
+=======
+public class ArrayListProductDaoTest {
+>>>>>>> f8aad0c32716180d1a7d9b4e18259f30d7242195
 }

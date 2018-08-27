@@ -8,10 +8,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+<<<<<<< HEAD
     <title>Web Page Is Not Found</title>
 </head>
 <body>
 <h1>Error 404</h1>
 <h2>It seems like a web page you're looking for is not found or does not exist</h2>
+=======
+    <title>$Title$</title>
+</head>
+<body>
+$END$
+>>>>>>> f8aad0c32716180d1a7d9b4e18259f30d7242195
 </body>
 </html>

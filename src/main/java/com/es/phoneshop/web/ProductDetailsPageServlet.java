@@ -1,5 +1,6 @@
 package com.es.phoneshop.web;
 
+<<<<<<< HEAD
 import com.es.phoneshop.exception.ProductNotFoundException;
 import com.es.phoneshop.model.ArrayListProductDao;
 import com.es.phoneshop.model.Product;
@@ -33,4 +34,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
         }
         request.getRequestDispatcher("/WEB-INF/pages/product.jsp").forward(request, response);
     }
+=======
+public class ProductDetailsPageServlet {
+>>>>>>> f8aad0c32716180d1a7d9b4e18259f30d7242195
 }
