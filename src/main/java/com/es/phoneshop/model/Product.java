@@ -20,6 +20,16 @@ public class Product {
         this.stock = 0;
     }
 
+    @Override
+    public int hashCode() {
+        return this.id.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this == obj;
+    }
+
     public Product(String code, String description, BigDecimal price, Currency currency, Integer stock) {
         this.code = code;
         this.description = description;

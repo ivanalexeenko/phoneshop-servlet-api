@@ -6,19 +6,10 @@
   Hello from product list!
 </p>
 <table>
-  <thead>
-    <tr>
-      <td>Id</td>
-      <td>Code</td>
-      <td>Description</td>
-      <td>Price</td>
-      <td>Currency</td>
-      <td>Stock</td>
-    </tr>
-  </thead>
+  <%@include file="header.jsp"%>
   <c:forEach var="product" items="${products}">
     <tr>
-      <td>${product.getId()}</td>
+      <td><a href="<c:url value="/products/product/${product.id}"/>">${product.id}</a></td>
       <td>${product.getCode()}</td>
       <td>${product.getDescription()}</td>
       <td>${product.getPrice()}</td>
