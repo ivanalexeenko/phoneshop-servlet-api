@@ -12,21 +12,17 @@ import java.util.stream.Collectors;
 public class ArrayListProductDao implements ProductDao {
     private static Long currentId = 0L;
     private List<Product> products;
-    private static volatile ArrayListProductDao instance;
 
     private ArrayListProductDao() {
         this.products = new ArrayList<Product>();
     }
 
+    private static class ArrayListProductDaoHelper {
+        private static final ArrayListProductDao INSTANCE = new ArrayListProductDao();
+    }
+
     public static ArrayListProductDao getInstance() {
-        if(instance == null) {
-            synchronized (ArrayListProductDao.class) {
-                if(instance == null) {
-                    instance = new ArrayListProductDao();
-                }
-            }
-        }
-        return instance;
+        return ArrayListProductDaoHelper.INSTANCE;
     }
 
     public List<Product> findProducts() {

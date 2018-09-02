@@ -13,10 +13,12 @@ import java.util.ArrayList;
 
 public class ProductDetailsPageServlet extends HttpServlet {
     private ProductDao productDao = ArrayListProductDao.getInstance();
+    private static final String PRODUCT_DAO_ATTRIBUTE_NAME = "productDao";
+    private static final String PRODUCT_ATTRIBUTE_NAME = "product";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("productDao", productDao);
+        request.setAttribute(ProductDetailsPageServlet.PRODUCT_DAO_ATTRIBUTE_NAME, productDao);
         try {
             String path = request.getPathInfo();
             if(path == null || path.compareTo("/") == 0) {
@@ -26,7 +28,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
             path = path.substring(index);
             Long productId = Long.valueOf(path);
             Product product = productDao.getProduct(productId);
-            request.setAttribute("product", product);
+            request.setAttribute(ProductDetailsPageServlet.PRODUCT_ATTRIBUTE_NAME, product);
         } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         } catch (ProductNotFoundException e1) {

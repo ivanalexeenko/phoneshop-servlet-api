@@ -3,6 +3,7 @@ package com.es.phoneshop.model;
 import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Locale;
+import java.util.Objects;
 
 public class Product {
     private Long id;
@@ -22,12 +23,24 @@ public class Product {
 
     @Override
     public int hashCode() {
-        return this.id.hashCode();
+        return Objects.hash(this.id,this.code,this.description,this.price,this.currency,this.stock);
     }
 
     @Override
     public boolean equals(Object obj) {
-        return this == obj;
+        if(this == obj) {
+            return true;
+        }
+        if(obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+        Product product = (Product)obj;
+        return  ((this.id == null && product.id == null) || (this.id != null && this.id.equals(product.id)))
+                && ((this.code == null && product.code == null) || (this.code != null && this.code.equals(product.code)))
+                && ((this.description == null && product.description == null) || (this.description != null && this.description.equals(product.description)))
+                && ((this.price == null && product.price == null) || (this.price != null && this.price.equals(product.price)))
+                && ((this.currency == null && product.currency == null) || (this.currency != null && this.currency.equals(product.currency)))
+                && ((this.stock == null && product.stock == null) || (this.stock != null && this.stock.equals(product.stock)));
     }
 
     public Product(String code, String description, BigDecimal price, Currency currency, Integer stock) {
