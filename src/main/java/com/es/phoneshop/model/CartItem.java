@@ -45,7 +45,6 @@ public class CartItem {
             return false;
         }
         CartItem cartItem = (CartItem)obj;
-        return ((this.product == null && cartItem.product == null) || (this.product != null && this.product.equals(cartItem.product)))
-                && ((this.quantity == null && cartItem.quantity == null) || (this.quantity != null && this.quantity.equals(cartItem.quantity)));
+        return ((this.product == null && cartItem.product == null) || (this.product != null && this.product.equals(cartItem.product)));
     }
 }

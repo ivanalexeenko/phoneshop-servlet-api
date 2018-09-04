@@ -21,43 +21,54 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CartServiceTest {
     private CartServiceInterface cartService;
     private Cart cart;
-    private final int stocksAndQuantities[] = {162,44,63,98,44,198};
+    private final int stockOne = 162,stockTwo = 44,stockThree = 63,quantityOne = 98,quantityTwo = 44,quantityThree = 198;
+
     @Before
     public void init() {
         cartService = CartService.getInstance();
         cart = new Cart();
     }
+
     @Test
     public void addProductQuantityLessEqualStockTest() throws ProductNotEnoughException {
-        int stockOne = stocksAndQuantities[0],
-                quantityOne = stocksAndQuantities[3],
-                stockTwo = stocksAndQuantities[1],
-                quantityTwo = stocksAndQuantities[4];
-        Product productOne = new Product();
-        productOne.setStock(stockOne);
-        Product productTwo = new Product();
-        productTwo.setStock(stockTwo);
-
-            cartService.add(cart,productOne,quantityOne);
-            cartService.add(cart,productTwo,quantityTwo);
-            ArrayList<CartItem> list = (ArrayList<CartItem>) cart.getCartItems();
-            assertTrue(list.get(0).equals(new CartItem(productOne,quantityOne)) && list.get(1).equals(new CartItem(productTwo,quantityTwo)));
+        Product productOne = Mockito.mock(Product.class);
+        Product productTwo = Mockito.mock(Product.class);
+        Mockito.when(productOne.getStock()).thenReturn(stockOne);
+        Mockito.when(productTwo.getStock()).thenReturn(stockTwo);
+        cartService.add(cart,productOne,quantityOne);
+        cartService.add(cart,productTwo,quantityTwo);
+        ArrayList<CartItem> list = (ArrayList<CartItem>) cart.getCartItems();
+        assertTrue(list.get(0).equals(new CartItem(productOne,quantityOne)) && list.get(1).equals(new CartItem(productTwo,quantityTwo)));
     }
+
     @Test(expected = ProductNotEnoughException.class)
     public void addProductQuantityGreaterStockTest() throws ProductNotEnoughException {
-        int stock = stocksAndQuantities[2],
-                quantity = stocksAndQuantities[5];
-        Product product = new Product();
-        product.setStock(stock);
-        cartService.add(cart,product,quantity);
+        Product product = Mockito.mock(Product.class);
+        product.setStock(stockThree);
+        cartService.add(cart,product,quantityThree);
     }
+    @Test
+    public void addEqualProductsTest() throws ProductNotEnoughException {
+        Product productOne = Mockito.mock(Product.class);
+        Product productTwo = productOne;
+        Mockito.when(productOne.getStock()).thenReturn(stockOne);
+        Mockito.when(productTwo.getStock()).thenReturn(stockOne);
+        productOne.setStock(stockOne);
+        productTwo.setStock(stockOne);
+        cartService.add(cart,productOne,quantityTwo);
+        cartService.add(cart,productTwo,quantityTwo);
+        assertEquals(1, cart.getCartItems().size());
+        assertEquals(cart.getCartItems().get(0).getProduct(),productOne);
+    }
+
 
     @Test
     public void getCartCurrentSessionTest() throws ProductNotEnoughException, InterruptedException {
-        Product product = new Product();
-        product.setStock(stocksAndQuantities[0]);
-        cartService.add(cart,product,stocksAndQuantities[1]);
-        CartItem cartItem = new CartItem(product,stocksAndQuantities[1]);
+        Product product = Mockito.mock(Product.class);
+        Mockito.when(product.getStock()).thenReturn(stockOne);
+        product.setStock(stockOne);
+        cartService.add(cart,product,stockTwo);
+        CartItem cartItem = new CartItem(product,stockTwo);
         HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
         HttpSession session = Mockito.mock(HttpSession.class);
         Mockito.when(request.getSession()).thenReturn(session);
@@ -72,12 +83,13 @@ public class CartServiceTest {
         CartItem compareItem = tempCart.getCartItems().get(0);
         assertEquals(compareItem,cartItem);
     }
+
     @Test
     public void getCartNewSessionTest() throws ProductNotEnoughException, InterruptedException {
-        Product product = new Product();
-        product.setStock(stocksAndQuantities[0]);
-        cartService.add(cart,product,stocksAndQuantities[1]);
-        CartItem cartItem = new CartItem(product,stocksAndQuantities[1]);
+        Product product = Mockito.mock(Product.class);
+        Mockito.when(product.getStock()).thenReturn(stockOne);
+        cartService.add(cart,product,stockTwo);
+        CartItem cartItem = new CartItem(product,stockTwo);
         HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
         HttpSession session = Mockito.mock(HttpSession.class);
         Mockito.when(request.getSession()).thenReturn(session);
@@ -91,6 +103,7 @@ public class CartServiceTest {
         Cart tempCart = cartService.getCart(request);
         assertTrue(tempCart.getCartItems().isEmpty());
     }
+
     @After
     public void destroy() {
         cartService = null;
