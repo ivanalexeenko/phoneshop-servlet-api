@@ -4,8 +4,9 @@ import com.es.phoneshop.exception.ProductNotEnoughException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
-public class CartService {
+public class CartService implements CartServiceInterface {
     private static final String CART_ATTRIBUTE_NAME = "cart";
     private static class CartServiceHelper {
         private static final CartService INSTANCE = new CartService();
@@ -35,7 +36,20 @@ public class CartService {
         if(product.getStock() < quantity) {
             throw new ProductNotEnoughException(ProductNotEnoughException.PRODUCT_NOT_ENOUGH_MESSAGE);
         }
-        cart.getCartItems().add(new CartItem(product,quantity));
+        Optional<CartItem> optionalCartItem = cart.getCartItems().stream().filter(cartItem -> cartItem.getProduct().equals(product)).findAny();
+        if(!optionalCartItem.isPresent()) {
+            product.setStock(product.getStock() - quantity);
+            cart.getCartItems().add(new CartItem(product,quantity));
+        }
+        else {
+            optionalCartItem = optionalCartItem.filter(cartItem -> cartItem.getQuantity() + quantity <= cartItem.getProduct().getStock());
+            if(!optionalCartItem.isPresent()) {
+                throw new ProductNotEnoughException(ProductNotEnoughException.PRODUCT_NOT_ENOUGH_MESSAGE);
+            }
+            product.setStock(product.getStock() - quantity);
+            optionalCartItem.get().setProduct(product);
+            optionalCartItem.get().setQuantity(optionalCartItem.get().getQuantity() + quantity);
+        }
     }
     private void pushDefaultItems(Cart cart) {
         ProductDao productDao = ArrayListProductDao.getInstance();

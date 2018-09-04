@@ -39,8 +39,7 @@ public class Product {
                 && ((this.code == null && product.code == null) || (this.code != null && this.code.equals(product.code)))
                 && ((this.description == null && product.description == null) || (this.description != null && this.description.equals(product.description)))
                 && ((this.price == null && product.price == null) || (this.price != null && this.price.equals(product.price)))
-                && ((this.currency == null && product.currency == null) || (this.currency != null && this.currency.equals(product.currency)))
-                && ((this.stock == null && product.stock == null) || (this.stock != null && this.stock.equals(product.stock)));
+                && ((this.currency == null && product.currency == null) || (this.currency != null && this.currency.equals(product.currency)));
     }
 
     public Product(String code, String description, BigDecimal price, Currency currency, Integer stock) {
