@@ -5,7 +5,7 @@ import com.es.phoneshop.exception.ProductNotEnoughException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class CartService {
+public class CartService implements CartServiceInterface {
     private static final String CART_ATTRIBUTE_NAME = "cart";
     private static class CartServiceHelper {
         private static final CartService INSTANCE = new CartService();

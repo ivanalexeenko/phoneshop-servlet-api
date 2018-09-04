@@ -19,7 +19,7 @@ import java.util.Timer;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CartServiceTest {
-    private CartService cartService;
+    private CartServiceInterface cartService;
     private Cart cart;
     private final int stocksAndQuantities[] = {162,44,63,98,44,198};
     @Before
