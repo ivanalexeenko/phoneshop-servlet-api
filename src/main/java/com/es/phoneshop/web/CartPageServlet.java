@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class CartPageServlet extends HttpServlet {
     private CartService cartService;
-    private static final String CART_ATTRIBUTE_NAME = "cart";
+    public static final String CART_ATTRIBUTE_NAME = "cart";
     private static final int MAX_SESSION_TIMEOUT_IN_SECONDS = 10 * 20;
 
     @Override

@@ -51,7 +51,7 @@ public class CartServiceTest {
         product.setStock(stock);
         cartService.add(cart,product,quantity);
     }
-/*
+
     @Test
     public void getCartCurrentSessionTest() throws ProductNotEnoughException, InterruptedException {
         Product product = new Product();
@@ -61,11 +61,36 @@ public class CartServiceTest {
         HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
         HttpSession session = Mockito.mock(HttpSession.class);
         Mockito.when(request.getSession()).thenReturn(session);
-        session.setMaxInactiveInterval(1000);
+        int time = 900;
+        int interval = 1000;
+        session.setMaxInactiveInterval(interval);
+        boolean isOver = (time > session.getMaxInactiveInterval());
+        Mockito.when(session.isNew()).thenReturn(!isOver);
+        Mockito.when(session.getAttribute("cart")).thenReturn(cart);
+        session.setAttribute("cart",cart);
         Cart tempCart = cartService.getCart(request);
-        assertEquals(tempCart.getCartItems().get(0),cartItem);
+        CartItem compareItem = tempCart.getCartItems().get(0);
+        assertEquals(compareItem,cartItem);
     }
-*/
+    @Test
+    public void getCartNewSessionTest() throws ProductNotEnoughException, InterruptedException {
+        Product product = new Product();
+        product.setStock(stocksAndQuantities[0]);
+        cartService.add(cart,product,stocksAndQuantities[1]);
+        CartItem cartItem = new CartItem(product,stocksAndQuantities[1]);
+        HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
+        HttpSession session = Mockito.mock(HttpSession.class);
+        Mockito.when(request.getSession()).thenReturn(session);
+        int time = 1000;
+        int interval = 900;
+        session.setMaxInactiveInterval(interval);
+        boolean isOver = (time > session.getMaxInactiveInterval());
+        Mockito.when(session.isNew()).thenReturn(isOver);
+        Mockito.when(session.getAttribute("cart")).thenReturn(cart);
+        session.setAttribute("cart",cart);
+        Cart tempCart = cartService.getCart(request);
+        assertTrue(tempCart.getCartItems().isEmpty());
+    }
     @After
     public void destroy() {
         cartService = null;
