@@ -13,6 +13,9 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
 import javax.servlet.http.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Timer;
 
@@ -47,6 +50,7 @@ public class CartServiceTest {
         product.setStock(stockThree);
         cartService.add(cart,product,quantityThree);
     }
+
     @Test
     public void addEqualProductsTest() throws ProductNotEnoughException {
         Product productOne = Mockito.mock(Product.class);
@@ -60,7 +64,6 @@ public class CartServiceTest {
         assertEquals(1, cart.getCartItems().size());
         assertEquals(cart.getCartItems().get(0).getProduct(),productOne);
     }
-
 
     @Test
     public void getCartCurrentSessionTest() throws ProductNotEnoughException, InterruptedException {

@@ -10,9 +10,8 @@
     <%@include file="../common/header.jsp"%>
 </head>
 <body>
-<table>
-    <thead>
-    <tr>
+<table class="w3-table-all w3-hoverable w3-centered">
+    <tr class="w3-indigo">
         <th>Id</th>
         <th>Code</th>
         <th>Description</th>
@@ -20,7 +19,6 @@
         <th>Currency</th>
         <th>Stock</th>
     </tr>
-    </thead>
     <tr>
         <td>${product.id}</td>
         <td>${product.code}</td>

@@ -10,13 +10,15 @@
         <c:choose>
     <c:when test="${cart.cartItems.isEmpty()}">
         <div style="text-align: center">
-            <b>Your Cart is Empty, try to add something and come back =)</b>
+            <b style="text-shadow:1px 1px 0 #444">Your Cart is Empty, try to add something and come back =)</b>
         </div>
     </c:when>
         <c:otherwise>
-            <b>Products added to cart:</b>
-            <table>
-                <tr>
+            <div style="text-align: center">
+                <b style="text-shadow:1px 1px 0 #444">Products added to cart:</b>
+            </div>
+            <table class="w3-table-all w3-hoverable w3-centered">
+                <tr class="w3-indigo">
                 <th>Id</th>
                     <th>Code</th>
                     <th>Price</th>

@@ -7,9 +7,8 @@
   <%@ include file="../common/header.jsp"%>
 </head>
 <body>
-<table>
-  <thead>
-  <tr>
+<table class="w3-table-all w3-hoverable w3-centered">
+  <tr class="w3-indigo">
     <th>Id</th>
     <th>Code</th>
     <th>Description</th>
@@ -17,7 +16,6 @@
     <th>Currency</th>
     <th>Stock</th>
   </tr>
-  </thead>
   <c:forEach var="product" items="${products}">
     <tr>
       <td><a href="<c:url value="/products/product/${product.id}"/>">${product.id}</a></td>
