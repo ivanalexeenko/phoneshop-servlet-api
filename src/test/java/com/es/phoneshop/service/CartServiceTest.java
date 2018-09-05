@@ -47,6 +47,7 @@ public class CartServiceTest {
         product.setStock(stockThree);
         cartService.add(cart,product,quantityThree);
     }
+
     @Test
     public void addEqualProductsTest() throws ProductNotEnoughException {
         Product productOne = Mockito.mock(Product.class);
@@ -60,7 +61,6 @@ public class CartServiceTest {
         assertEquals(1, cart.getCartItems().size());
         assertEquals(cart.getCartItems().get(0).getProduct(),productOne);
     }
-
 
     @Test
     public void getCartCurrentSessionTest() throws ProductNotEnoughException, InterruptedException {
