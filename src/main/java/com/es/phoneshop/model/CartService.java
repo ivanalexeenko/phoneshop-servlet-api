@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 public class CartService implements CartServiceInterface {
-    private static final String CART_ATTRIBUTE_NAME = "cart";
+    public static final String CART_ATTRIBUTE_NAME = "cart";
     private static class CartServiceHelper {
         private static final CartService INSTANCE = new CartService();
     }
