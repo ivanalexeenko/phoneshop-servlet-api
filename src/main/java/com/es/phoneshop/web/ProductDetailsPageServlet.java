@@ -1,7 +1,10 @@
 package com.es.phoneshop.web;
+import com.es.phoneshop.additional.ArrayListVisitedPages;
+import com.es.phoneshop.additional.VisitedPagesInterface;
 import com.es.phoneshop.exception.*;
 import com.es.phoneshop.model.*;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,12 +15,20 @@ import java.util.ArrayList;
 public class ProductDetailsPageServlet extends HttpServlet {
     private ProductDao productDao = ArrayListProductDao.getInstance();
     private CartServiceInterface cartService = CartService.getInstance();
+    private VisitedPagesInterface visitedPages = ArrayListVisitedPages.getInstance();
     private static final String PRODUCT_ATTRIBUTE_NAME = "product";
     private static final String MESSAGE_ATTRIBUTE_NAME = "message";
     public static final String SUCCESS_MESSAGE = "Product Added to Cart Successfully!";
+    private String message = null;
+    private String quantityString = null;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        visitedPages.saveAddress(request.getRequestURI());
+        if(visitedPages.isLastAddressNew()) {
+            message = null;
+            quantityString = null;
+        }
         Product product = null;
         try {
             product = productDao.getProduct(getProductId(request));
@@ -27,15 +38,18 @@ public class ProductDetailsPageServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
         request.setAttribute(ProductDetailsPageServlet.PRODUCT_ATTRIBUTE_NAME,product);
+        request.setAttribute(ProductDetailsPageServlet.MESSAGE_ATTRIBUTE_NAME,message);
+        request.setAttribute("quantity",quantityString);
         request.getRequestDispatcher("/WEB-INF/pages/product.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        visitedPages.saveAddress(request.getRequestURI());
         Long productId = getProductId(request);
         Product product = null;
-        String message = null;
-        String quantityString = request.getParameter("quantity");
+        message = null;
+        quantityString = request.getParameter("quantity");
         try {
             if(quantityString == null || quantityString.isEmpty()) {
                 throw new EmptyFieldException(EmptyFieldException.EMPTY_FIELD_MESSAGE);
@@ -66,11 +80,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
         } catch (ProductNotFoundException e) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
-
-        request.setAttribute(ProductDetailsPageServlet.MESSAGE_ATTRIBUTE_NAME,message);
-        request.setAttribute(ProductDetailsPageServlet.PRODUCT_ATTRIBUTE_NAME,product);
-        request.setAttribute("quantity",quantityString);
-        request.getRequestDispatcher("/WEB-INF/pages/product.jsp").forward(request, response);
+        response.sendRedirect(request.getRequestURI());
     }
 
     private Long getProductId(HttpServletRequest request) throws NumberFormatException,StringIndexOutOfBoundsException {

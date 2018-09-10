@@ -1,3 +1,4 @@
+
 package com.es.phoneshop.model;
 
 import com.es.phoneshop.exception.ProductNotFoundException;
