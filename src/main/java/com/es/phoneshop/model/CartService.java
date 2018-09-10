@@ -1,7 +1,6 @@
 package com.es.phoneshop.model;
 
 import com.es.phoneshop.exception.ProductNotEnoughException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
@@ -11,7 +10,6 @@ public class CartService implements CartServiceInterface {
     private static class CartServiceHelper {
         private static final CartService INSTANCE = new CartService();
     }
-    private boolean isInitialized = false;
     public static CartService getInstance() {
         return CartServiceHelper.INSTANCE;
     }
@@ -21,10 +19,6 @@ public class CartService implements CartServiceInterface {
         Cart cart = (Cart) session.getAttribute(CartService.CART_ATTRIBUTE_NAME);
         if(cart == null) {
             cart = new Cart();
-            if(!isInitialized) {
-                pushDefaultItems(cart);
-            }
-            isInitialized = true;
             session.setAttribute(CartService.CART_ATTRIBUTE_NAME,cart);
         }
         if(session.isNew()) {
@@ -42,7 +36,7 @@ public class CartService implements CartServiceInterface {
             cart.getCartItems().add(new CartItem(product,quantity));
         }
         else {
-            optionalCartItem = optionalCartItem.filter(cartItem -> cartItem.getQuantity() + quantity <= cartItem.getProduct().getStock());
+            optionalCartItem = optionalCartItem.filter(cartItem -> quantity <= cartItem.getProduct().getStock());
             if(!optionalCartItem.isPresent()) {
                 throw new ProductNotEnoughException(ProductNotEnoughException.PRODUCT_NOT_ENOUGH_MESSAGE);
             }
@@ -50,15 +44,5 @@ public class CartService implements CartServiceInterface {
             optionalCartItem.get().setProduct(product);
             optionalCartItem.get().setQuantity(optionalCartItem.get().getQuantity() + quantity);
         }
-    }
-    private void pushDefaultItems(Cart cart) {
-        ProductDao productDao = ArrayListProductDao.getInstance();
-        productDao.findProducts().forEach(product -> {
-            try {
-                add(cart,product,1);
-            } catch (ProductNotEnoughException ignored) {
-
-            }
-        });
     }
 }
