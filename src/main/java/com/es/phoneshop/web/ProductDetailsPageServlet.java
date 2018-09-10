@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ProductDetailsPageServlet extends HttpServlet {
     private ProductDao productDao = ArrayListProductDao.getInstance();
@@ -24,7 +27,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        visitedPages.saveAddress(request.getRequestURI());
+        visitedPages.saveAddress(request);
         if(visitedPages.isLastAddressNew()) {
             message = null;
             quantityString = null;
@@ -37,6 +40,10 @@ public class ProductDetailsPageServlet extends HttpServlet {
         } catch (ProductNotFoundException e1) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
+        request.setAttribute("notEnough",ProductNotEnoughException.PRODUCT_NOT_ENOUGH_MESSAGE);
+        request.setAttribute("notNumber",NotNumberException.NOT_NUMBER_MESSAGE);
+        request.setAttribute("lessEqualZero",LessEqualZeroAmountException.LESS_EQUAL_ZERO_AMOUNT_MESSAGE);
+        request.setAttribute("emptyField",EmptyFieldException.EMPTY_FIELD_MESSAGE);
         request.setAttribute(ProductDetailsPageServlet.PRODUCT_ATTRIBUTE_NAME,product);
         request.setAttribute(ProductDetailsPageServlet.MESSAGE_ATTRIBUTE_NAME,message);
         request.setAttribute("quantity",quantityString);
@@ -45,7 +52,8 @@ public class ProductDetailsPageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        visitedPages.saveAddress(request.getRequestURI());
+        visitedPages.saveAddress(request);
+        System.out.println(request.getLocale());
         Long productId = getProductId(request);
         Product product = null;
         message = null;
@@ -56,9 +64,9 @@ public class ProductDetailsPageServlet extends HttpServlet {
             }
             Integer quantity = null;
             try {
-               quantity = Integer.valueOf(quantityString);
+                quantity = DecimalFormat.getInstance(request.getLocale()).parse(quantityString).intValue();
             }
-            catch (NumberFormatException e) {
+            catch (NumberFormatException | ParseException e) {
                 throw new NotNumberException(NotNumberException.NOT_NUMBER_MESSAGE);
             }
             if(quantity <= 0) {

@@ -1,12 +1,24 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <jsp:useBean id="product" scope="request" type="com.es.phoneshop.model.Product"/>
 <jsp:useBean id="message" scope="request" class="java.lang.String"/>
 <jsp:useBean id="quantity" scope="request" class="java.lang.String"/>
+<jsp:useBean id="notNumber" scope="request" class="java.lang.String"/>
+<jsp:useBean id="lessEqualZero" scope="request" class="java.lang.String"/>
+<jsp:useBean id="emptyField" scope="request" class="java.lang.String"/>
+<jsp:useBean id="notEnough" scope="request" class="java.lang.String"/>
+
+<c:set var="locale" value="${pageContext.request.locale}"/>
 <%@ page import="com.es.phoneshop.model.Product" %>
 <%@ page import="com.es.phoneshop.model.ProductDao" %>
 <%@ page import="com.es.phoneshop.model.ArrayListProductDao" %>
 <%@ page import="com.es.phoneshop.exception.ProductNotFoundException" %>
 <%@ page import="com.es.phoneshop.web.ProductDetailsPageServlet" %>
+<%@ page import="com.es.phoneshop.bundle.ResourceBundleEnglishEngland" %>
+<%@ page import="com.es.phoneshop.bundle.ResourceBundleRussian" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <script>
     function setCaretPosition(element,index) {
         if(element.setSelectionRange) {
@@ -34,21 +46,42 @@
     <%@include file="../common/header.jsp"%>
 </head>
 <body>
+<fmt:setBundle basename = "com.es.phoneshop.bundle.ResourceBundleRussian" var = "russianLang"/>
+<fmt:setBundle basename = "com.es.phoneshop.bundle.ResourceBundleEnglishEngland" var="englishEnglandLang"/>
+<c:choose>
+    <c:when test="${locale == 'ru'}">
+            <c:set var="lang" value="${russianLang}"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="lang" value="${englishEnglandLang}"/>
+    </c:otherwise>
+</c:choose>
 <c:if test="${message != null}">
 <c:choose>
     <c:when test="${message.contains(ProductDetailsPageServlet.SUCCESS_MESSAGE)}">
         <div class="w3-panel w3-green w3-display-container">
             <span onclick="this.parentElement.style.display='none'" class="w3-button w3-green w3-large w3-display-topright">&times;</span>
-            <h3>Success</h3>
-            <p>${message}</p>
+            <h3><fmt:message key="header.success" bundle="${lang}"/></h3>
+            <p><fmt:message key="message.success" bundle="${lang}"/></p>
         </div>
     </c:when>
     <c:otherwise>
         <c:if test="${!message.equals('')}">
             <div class="w3-panel w3-red w3-display-container">
             <span onclick="this.parentElement.style.display='none'" class="w3-button w3-red w3-large w3-display-topright">&times;</span>
-            <h3>Error</h3>
-            <p>${message}</p>
+                <h3><fmt:message key="header.error" bundle="${lang}"/></h3>
+                <c:if test="${message.equals(emptyField)}">
+                    <p><fmt:message key="message.empty.field" bundle="${lang}"/></p>
+                </c:if>
+                <c:if test="${message.equals(lessEqualZero)}">
+                    <p><fmt:message key="message.less.equal.zero" bundle="${lang}"/></p>
+                </c:if>
+                <c:if test="${message.equals(notNumber)}">
+                    <p><fmt:message key="message.not.number" bundle="${lang}"/></p>
+                </c:if>
+                <c:if test="${message.equals(notEnough)}">
+                    <p><fmt:message key="message.not.enough" bundle="${lang}"/></p>
+                </c:if>
             </div>
         </c:if>
     </c:otherwise>

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id = "cart" type = "com.es.phoneshop.model.Cart" scope = "request"/>
 <html>
@@ -31,7 +32,11 @@
                         <td>${cartItem.product.code}</td>
                         <td>${cartItem.product.price}</td>
                         <td>${cartItem.product.currency}</td>
-                    <td>${cartItem.quantity}</td>
+                    <td>
+                        <fmt:formatNumber type="number">
+                            ${cartItem.quantity}
+                        </fmt:formatNumber>
+                    </td>
                     </tr>
                 </c:forEach>
             </table>

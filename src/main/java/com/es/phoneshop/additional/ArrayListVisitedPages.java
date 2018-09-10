@@ -1,5 +1,6 @@
 package com.es.phoneshop.additional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,11 @@ public class ArrayListVisitedPages implements VisitedPagesInterface {
     }
 
     @Override
-    public void saveAddress(String address) {
-        addresses.add(address);
+    public void saveAddress(HttpServletRequest request) {
+        if(request.getSession().isNew()) {
+            clearAll();
+        }
+        addresses.add(request.getRequestURI());
     }
 
     @Override
@@ -26,5 +30,9 @@ public class ArrayListVisitedPages implements VisitedPagesInterface {
             return true;
         }
         return (!addresses.get(addresses.size() - 1).equals(addresses.get(addresses.size() - 2)));
+    }
+
+    private void clearAll() {
+        addresses.clear();
     }
 }

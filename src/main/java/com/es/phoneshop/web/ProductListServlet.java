@@ -20,7 +20,7 @@ public class ProductListServlet extends HttpServlet {
     private VisitedPagesInterface visitedPages = ArrayListVisitedPages.getInstance();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        visitedPages.saveAddress(request.getRequestURI());
+        visitedPages.saveAddress(request);
         request.setAttribute(ProductListServlet.PRODUCTS_ATTRIBUTE_NAME, productDao.findProducts());
         request.getRequestDispatcher("/WEB-INF/pages/productList.jsp").forward(request, response);
     }
