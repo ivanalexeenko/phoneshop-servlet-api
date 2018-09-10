@@ -54,12 +54,12 @@ public class ArrayListProductDao implements ProductDao {
         throw new ProductNotFoundException(ProductNotFoundException.productNotFoundMessage + "(ID:" + id + ")");
     }
     public void pushDefaultProducts() {
-        save(new Product("u72u1","New",BigDecimal.valueOf(900),Currency.getInstance(Locale.CHINA),10));
-        save(new Product("PPoPP2'","Brand New",BigDecimal.valueOf(777),Currency.getInstance(Locale.ITALY),1));
-        save(new Product("lkasfa21","New",BigDecimal.valueOf(900),Currency.getInstance(Locale.GERMANY),0));
-        save(new Product("Pa1p13","NA",BigDecimal.valueOf(0),Currency.getInstance(Locale.KOREA),13));
-        save(new Product("EX00pe11RT","Delicious",null,Currency.getInstance(Locale.JAPAN),94));
-        save(new Product("OOOOOO000","What is this",BigDecimal.valueOf(-213),Currency.getInstance(Locale.CHINA),1000));
+        save(new Product("Apple iPhone X","New",BigDecimal.valueOf(7528.18),Currency.getInstance(Locale.CHINA),10));
+        save(new Product("Huawei P20 Pro'","Brand New",BigDecimal.valueOf(691.35),Currency.getInstance(Locale.ITALY),1));
+        save(new Product("Xiaomi Pocophone F1","Absolutely Fantastic!",BigDecimal.valueOf(460.00),Currency.getInstance(Locale.US),33));
+        save(new Product("Sony XZ2 Premium","N/D",BigDecimal.valueOf(750.71),Currency.getInstance(Locale.UK),13));
+        save(new Product("Motorola ZZ 11","Delicious",null,Currency.getInstance(Locale.CHINA),0));
+        save(new Product("Honor 10","What is this?",BigDecimal.valueOf(3421.90),Currency.getInstance(Locale.CHINA),1000));
     }
     public void clearAll() {
         products.clear();
