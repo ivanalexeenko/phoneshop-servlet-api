@@ -44,9 +44,6 @@ public class ProductDetailsPageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("windows-1251");
-        response.setCharacterEncoding("windows-1251");
-        response.setContentType("text/html");
         visitedPages.saveAddress(request);
         Long productId = getProductId(request);
         Product product = null;
