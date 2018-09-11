@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -43,6 +44,9 @@ public class ProductDetailsPageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("windows-1251");
+        response.setCharacterEncoding("windows-1251");
+        response.setContentType("text/html");
         visitedPages.saveAddress(request);
         Long productId = getProductId(request);
         Product product = null;
@@ -75,7 +79,9 @@ public class ProductDetailsPageServlet extends HttpServlet {
         }
         Integer quantity = null;
         try {
-            quantity = DecimalFormat.getInstance(request.getLocale()).parse(attributeString).intValue();
+            char test = attributeString.charAt(attributeString.length() - 1);
+            int numberTest = Integer.parseInt(String.valueOf(test));
+            quantity = DecimalFormat.getIntegerInstance(request.getLocale()).parse(attributeString).intValue();
         }
         catch (NumberFormatException | ParseException e) {
             throw new NotNumberException(NotNumberException.NOT_NUMBER_MESSAGE);
