@@ -28,10 +28,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         visitedPages.saveAddress(request);
-        if(visitedPages.isLastAddressNew()) {
-            message = null;
-            quantityString = null;
-        }
+        clearInputIfNeeded();
         Product product = null;
         try {
             product = productDao.getProduct(getProductId(request));
@@ -40,38 +37,19 @@ public class ProductDetailsPageServlet extends HttpServlet {
         } catch (ProductNotFoundException e1) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
-        request.setAttribute("notEnough",ProductNotEnoughException.PRODUCT_NOT_ENOUGH_MESSAGE);
-        request.setAttribute("notNumber",NotNumberException.NOT_NUMBER_MESSAGE);
-        request.setAttribute("lessEqualZero",LessEqualZeroAmountException.LESS_EQUAL_ZERO_AMOUNT_MESSAGE);
-        request.setAttribute("emptyField",EmptyFieldException.EMPTY_FIELD_MESSAGE);
-        request.setAttribute(ProductDetailsPageServlet.PRODUCT_ATTRIBUTE_NAME,product);
-        request.setAttribute(ProductDetailsPageServlet.MESSAGE_ATTRIBUTE_NAME,message);
-        request.setAttribute("quantity",quantityString);
+        setAttributes(request,product);
         request.getRequestDispatcher("/WEB-INF/pages/product.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         visitedPages.saveAddress(request);
-        System.out.println(request.getLocale());
         Long productId = getProductId(request);
         Product product = null;
         message = null;
         quantityString = request.getParameter("quantity");
         try {
-            if(quantityString == null || quantityString.isEmpty()) {
-                throw new EmptyFieldException(EmptyFieldException.EMPTY_FIELD_MESSAGE);
-            }
-            Integer quantity = null;
-            try {
-                quantity = DecimalFormat.getInstance(request.getLocale()).parse(quantityString).intValue();
-            }
-            catch (NumberFormatException | ParseException e) {
-                throw new NotNumberException(NotNumberException.NOT_NUMBER_MESSAGE);
-            }
-            if(quantity <= 0) {
-                throw new LessEqualZeroAmountException(LessEqualZeroAmountException.LESS_EQUAL_ZERO_AMOUNT_MESSAGE);
-            }
+            Integer quantity = parseAttribute(request,quantityString);
             product = productDao.getProduct(productId);
             cartService.add(cartService.getCart(request),product,quantity);
             message = ProductDetailsPageServlet.SUCCESS_MESSAGE;
@@ -90,7 +68,38 @@ public class ProductDetailsPageServlet extends HttpServlet {
         }
         response.sendRedirect(request.getRequestURI());
     }
-
+    private Integer parseAttribute(HttpServletRequest request,String attributeString) throws EmptyFieldException, NotNumberException, LessEqualZeroAmountException {
+        if(attributeString == null ||attributeString.isEmpty()) {
+            throw new EmptyFieldException
+                    (EmptyFieldException.EMPTY_FIELD_MESSAGE);
+        }
+        Integer quantity = null;
+        try {
+            quantity = DecimalFormat.getInstance(request.getLocale()).parse(attributeString).intValue();
+        }
+        catch (NumberFormatException | ParseException e) {
+            throw new NotNumberException(NotNumberException.NOT_NUMBER_MESSAGE);
+        }
+        if(quantity <= 0) {
+            throw new LessEqualZeroAmountException(LessEqualZeroAmountException.LESS_EQUAL_ZERO_AMOUNT_MESSAGE);
+        }
+        return quantity;
+    }
+    private void clearInputIfNeeded() {
+        if(visitedPages.isLastAddressNew()) {
+            message = null;
+            quantityString = null;
+        }
+    }
+    private void setAttributes(HttpServletRequest request,Product product) {
+        request.setAttribute("notEnough",ProductNotEnoughException.PRODUCT_NOT_ENOUGH_MESSAGE);
+        request.setAttribute("notNumber",NotNumberException.NOT_NUMBER_MESSAGE);
+        request.setAttribute("lessEqualZero",LessEqualZeroAmountException.LESS_EQUAL_ZERO_AMOUNT_MESSAGE);
+        request.setAttribute("emptyField",EmptyFieldException.EMPTY_FIELD_MESSAGE);
+        request.setAttribute(ProductDetailsPageServlet.PRODUCT_ATTRIBUTE_NAME,product);
+        request.setAttribute(ProductDetailsPageServlet.MESSAGE_ATTRIBUTE_NAME,message);
+        request.setAttribute("quantity",quantityString);
+    }
     private Long getProductId(HttpServletRequest request) throws NumberFormatException,StringIndexOutOfBoundsException {
         String path = request.getPathInfo();
         if(path == null || path.compareTo("/") == 0) {
