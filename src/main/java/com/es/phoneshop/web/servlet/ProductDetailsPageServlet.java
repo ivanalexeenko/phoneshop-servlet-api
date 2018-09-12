@@ -50,17 +50,12 @@ public class ProductDetailsPageServlet extends HttpServlet {
         message = null;
         quantityString = request.getParameter("quantity");
         try {
-            Integer quantity = parseAttribute(request,quantityString);
-            product = productDao.getProduct(productId);
-            cartService.add(cartService.getCart(request),product,quantity);
-            message = ProductDetailsPageServlet.SUCCESS_MESSAGE;
+            executeSuccessfulOperations(request,product,productId);
         }
-        catch (EmptyFieldException | NotNumberException | LessEqualZeroAmountException e) {
+        catch (EmptyFieldException | NotNumberException | LessEqualZeroAmountException | FractionalQuantityException | ProductNotEnoughException e) {
             message = e.getMessage();
         } catch (ProductNotFoundException e1) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        } catch (ProductNotEnoughException e2) {
-            message = ProductNotEnoughException.PRODUCT_NOT_ENOUGH_MESSAGE;
         }
         try {
             product = productDao.getProduct(productId);
@@ -69,7 +64,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
         }
         response.sendRedirect(request.getRequestURI());
     }
-    private Integer parseAttribute(HttpServletRequest request,String attributeString) throws EmptyFieldException, NotNumberException, LessEqualZeroAmountException {
+    private Integer parseAttribute(HttpServletRequest request,String attributeString) throws EmptyFieldException, NotNumberException, LessEqualZeroAmountException, FractionalQuantityException {
         if(attributeString == null ||attributeString.isEmpty()) {
             throw new EmptyFieldException
                     (EmptyFieldException.EMPTY_FIELD_MESSAGE);
@@ -78,7 +73,12 @@ public class ProductDetailsPageServlet extends HttpServlet {
         try {
             char test = attributeString.charAt(attributeString.length() - 1);
             int numberTest = Integer.parseInt(String.valueOf(test));
-            quantity = DecimalFormat.getIntegerInstance(request.getLocale()).parse(attributeString).intValue();
+            Double tempDouble =  DecimalFormat.getNumberInstance(request.getLocale()).parse(attributeString).doubleValue();
+            Integer tempInteger = tempDouble.intValue();
+            if(!tempDouble.equals(tempInteger.doubleValue())) {
+                throw new FractionalQuantityException(FractionalQuantityException.FRACTIONAL_QUANTITY_MESSAGE);
+            }
+            quantity =  tempInteger;
         }
         catch (NumberFormatException | ParseException e) {
             throw new NotNumberException(NotNumberException.NOT_NUMBER_MESSAGE);
@@ -99,6 +99,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
         request.setAttribute("notNumber",NotNumberException.NOT_NUMBER_MESSAGE);
         request.setAttribute("lessEqualZero",LessEqualZeroAmountException.LESS_EQUAL_ZERO_AMOUNT_MESSAGE);
         request.setAttribute("emptyField",EmptyFieldException.EMPTY_FIELD_MESSAGE);
+        request.setAttribute("fractional",FractionalQuantityException.FRACTIONAL_QUANTITY_MESSAGE);
         request.setAttribute(ProductDetailsPageServlet.PRODUCT_ATTRIBUTE_NAME,product);
         request.setAttribute(ProductDetailsPageServlet.MESSAGE_ATTRIBUTE_NAME,message);
         request.setAttribute("quantity",quantityString);
@@ -111,5 +112,11 @@ public class ProductDetailsPageServlet extends HttpServlet {
         int index = path.indexOf("/") + 1;
         path = path.substring(index);
         return Long.valueOf(path);
+    }
+    private void executeSuccessfulOperations(HttpServletRequest request,Product product,Long productId) throws ProductNotFoundException, NotNumberException, FractionalQuantityException, LessEqualZeroAmountException, EmptyFieldException, ProductNotEnoughException {
+        Integer quantity = parseAttribute(request,quantityString);
+        product = productDao.getProduct(productId);
+        cartService.add(cartService.getCart(request),product,quantity);
+        message = ProductDetailsPageServlet.SUCCESS_MESSAGE;
     }
 }
