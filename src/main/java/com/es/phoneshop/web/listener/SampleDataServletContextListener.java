@@ -1,4 +1,4 @@
-package com.es.phoneshop.web;
+package com.es.phoneshop.web.listener;
 import com.es.phoneshop.model.ArrayListProductDao;
 import com.es.phoneshop.model.CartService;
 import com.es.phoneshop.model.ProductDao;
@@ -8,9 +8,11 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 public class SampleDataServletContextListener implements ServletContextListener {
+
     private ProductDao productDao;
     private CartService cartService;
     private static final String INIT_PARAMETER_NAME = "init";
+
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         Boolean isInitialized;

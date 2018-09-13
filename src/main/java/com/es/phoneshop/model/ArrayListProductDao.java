@@ -11,6 +11,7 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class ArrayListProductDao implements ProductDao {
+
     private static Long currentId = 0L;
     private List<Product> products;
 
@@ -54,6 +55,7 @@ public class ArrayListProductDao implements ProductDao {
         }
         throw new ProductNotFoundException(ProductNotFoundException.productNotFoundMessage + "(ID:" + id + ")");
     }
+
     public void pushDefaultProducts() {
         save(new Product("Apple iPhone X","New",BigDecimal.valueOf(7528.18),Currency.getInstance(Locale.CHINA),10));
         save(new Product("Huawei P20 Pro'","Brand New",BigDecimal.valueOf(691.35),Currency.getInstance(Locale.ITALY),1));
@@ -62,6 +64,7 @@ public class ArrayListProductDao implements ProductDao {
         save(new Product("Motorola ZZ 11","Delicious",null,Currency.getInstance(Locale.CHINA),0));
         save(new Product("Honor 10","What is this?",BigDecimal.valueOf(3421.90),Currency.getInstance(Locale.CHINA),10000));
     }
+
     public void clearAll() {
         products.clear();
         currentId = 0L;

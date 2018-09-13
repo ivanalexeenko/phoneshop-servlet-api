@@ -8,16 +8,11 @@
 <jsp:useBean id="lessEqualZero" scope="request" class="java.lang.String"/>
 <jsp:useBean id="emptyField" scope="request" class="java.lang.String"/>
 <jsp:useBean id="notEnough" scope="request" class="java.lang.String"/>
-
+<jsp:useBean id="fractional" scope="request" class="java.lang.String"/>
 <c:set var="locale" value="${pageContext.request.locale}"/>
-<%@ page import="com.es.phoneshop.model.Product" %>
-<%@ page import="com.es.phoneshop.model.ProductDao" %>
-<%@ page import="com.es.phoneshop.model.ArrayListProductDao" %>
-<%@ page import="com.es.phoneshop.exception.ProductNotFoundException" %>
-<%@ page import="com.es.phoneshop.web.ProductDetailsPageServlet" %>
-<%@ page import="com.es.phoneshop.bundle.ResourceBundleEnglishEngland" %>
-<%@ page import="com.es.phoneshop.bundle.ResourceBundleRussian" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ page import="com.es.phoneshop.web.servlet.ProductDetailsPageServlet" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <script>
     function setCaretPosition(element,index) {
@@ -42,6 +37,7 @@
 </script>
 <html>
 <head>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Product Details</title>
     <%@include file="../common/header.jsp"%>
 </head>
@@ -81,6 +77,9 @@
                 </c:if>
                 <c:if test="${message.equals(notEnough)}">
                     <p><fmt:message key="message.not.enough" bundle="${lang}"/></p>
+                </c:if>
+                <c:if test="${message.equals(fractional)}">
+                    <p><fmt:message key="message.fractional" bundle="${lang}"/></p>
                 </c:if>
             </div>
         </c:if>

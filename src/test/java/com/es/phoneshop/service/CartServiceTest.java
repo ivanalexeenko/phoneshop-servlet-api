@@ -2,23 +2,12 @@ package com.es.phoneshop.service;
 
 import com.es.phoneshop.exception.ProductNotEnoughException;
 import com.es.phoneshop.model.*;
-import com.es.phoneshop.web.CartPageServlet;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 
 import javax.servlet.http.*;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Timer;
 
 import static org.junit.jupiter.api.Assertions.*;
 

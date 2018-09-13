@@ -1,14 +1,9 @@
 package com.es.phoneshop.bundle;
 
-import com.es.phoneshop.exception.EmptyFieldException;
-import com.es.phoneshop.exception.LessEqualZeroAmountException;
-import com.es.phoneshop.exception.NotNumberException;
-import com.es.phoneshop.exception.ProductNotEnoughException;
-import com.es.phoneshop.web.ProductDetailsPageServlet;
-
 import java.util.ListResourceBundle;
 
 public class ResourceBundleRussian extends ListResourceBundle {
+
     @Override
     protected Object[][] getContents() {
         return contents;
@@ -20,6 +15,7 @@ public class ResourceBundleRussian extends ListResourceBundle {
             {"message.less.equal.zero", "Количество должно быть положительным, пожалуйста, введите число больше 0"},
             {"header.success","Успех!"},
             {"header.error","Ошибка"},
-            {"message.not.enough", "Извините, у нас нет такого количества данного товара на складе"}
+            {"message.not.enough", "Извините, у нас нет такого количества данного товара на складе"},
+            {"message.fractional", "Введенное количество не является целым числом"}
     };
 }

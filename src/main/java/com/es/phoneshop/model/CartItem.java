@@ -3,6 +3,7 @@ package com.es.phoneshop.model;
 import java.util.Objects;
 
 public class CartItem {
+
     private Product product;
     private Integer quantity;
 

@@ -5,7 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArrayListVisitedPages implements VisitedPagesInterface {
+
     private List<String> addresses;
+
+    private void clearAll() {
+        addresses.clear();
+    }
+
     private static class ArrayListVisitedPagesHelper {
         private static final ArrayListVisitedPages INSTANCE = new ArrayListVisitedPages();
     }
@@ -30,9 +36,5 @@ public class ArrayListVisitedPages implements VisitedPagesInterface {
             return true;
         }
         return (!addresses.get(addresses.size() - 1).equals(addresses.get(addresses.size() - 2)));
-    }
-
-    private void clearAll() {
-        addresses.clear();
     }
 }

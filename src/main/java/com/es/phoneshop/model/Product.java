@@ -6,6 +6,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class Product {
+
     private Long id;
     private String code;
     private String description;

@@ -6,7 +6,9 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 public class CartService implements CartServiceInterface {
+
     public static final String CART_ATTRIBUTE_NAME = "cart";
+
     private static class CartServiceHelper {
         private static final CartService INSTANCE = new CartService();
     }
@@ -26,6 +28,7 @@ public class CartService implements CartServiceInterface {
         }
         return cart;
     }
+
     public void add(Cart cart,Product product,Integer quantity) throws ProductNotEnoughException {
         if(product.getStock() < quantity) {
             throw new ProductNotEnoughException(ProductNotEnoughException.PRODUCT_NOT_ENOUGH_MESSAGE);

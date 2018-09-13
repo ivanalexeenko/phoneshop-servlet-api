@@ -1,22 +1,20 @@
-package com.es.phoneshop.web;
+package com.es.phoneshop.web.servlet;
 import com.es.phoneshop.additional.ArrayListVisitedPages;
 import com.es.phoneshop.additional.VisitedPagesInterface;
 import com.es.phoneshop.exception.*;
 import com.es.phoneshop.model.*;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Locale;
 
 public class ProductDetailsPageServlet extends HttpServlet {
+
     private ProductDao productDao = ArrayListProductDao.getInstance();
     private CartServiceInterface cartService = CartService.getInstance();
     private VisitedPagesInterface visitedPages = ArrayListVisitedPages.getInstance();
@@ -28,8 +26,9 @@ public class ProductDetailsPageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        visitedPages.saveAddress(request);
-        clearInputIfNeeded();
+
+        getReady(request);
+
         Product product = null;
         try {
             product = productDao.getProduct(getProductId(request));
@@ -44,7 +43,9 @@ public class ProductDetailsPageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        visitedPages.saveAddress(request);
+
+        getReady(request);
+
         Long productId = getProductId(request);
         Product product = null;
         message = null;
@@ -64,7 +65,14 @@ public class ProductDetailsPageServlet extends HttpServlet {
         }
         response.sendRedirect(request.getRequestURI());
     }
+    private void getReady(HttpServletRequest request) throws UnsupportedEncodingException {
+
+        request.setCharacterEncoding("UTF-8");
+        visitedPages.saveAddress(request);
+        clearInputIfNeeded();
+    }
     private Integer parseAttribute(HttpServletRequest request,String attributeString) throws EmptyFieldException, NotNumberException, LessEqualZeroAmountException, FractionalQuantityException {
+
         if(attributeString == null ||attributeString.isEmpty()) {
             throw new EmptyFieldException
                     (EmptyFieldException.EMPTY_FIELD_MESSAGE);
@@ -89,12 +97,14 @@ public class ProductDetailsPageServlet extends HttpServlet {
         return quantity;
     }
     private void clearInputIfNeeded() {
+
         if(visitedPages.isLastAddressNew()) {
             message = null;
             quantityString = null;
         }
     }
     private void setAttributes(HttpServletRequest request,Product product) {
+
         request.setAttribute("notEnough",ProductNotEnoughException.PRODUCT_NOT_ENOUGH_MESSAGE);
         request.setAttribute("notNumber",NotNumberException.NOT_NUMBER_MESSAGE);
         request.setAttribute("lessEqualZero",LessEqualZeroAmountException.LESS_EQUAL_ZERO_AMOUNT_MESSAGE);
@@ -105,6 +115,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
         request.setAttribute("quantity",quantityString);
     }
     private Long getProductId(HttpServletRequest request) throws NumberFormatException,StringIndexOutOfBoundsException {
+
         String path = request.getPathInfo();
         if(path == null || path.compareTo("/") == 0) {
             throw new StringIndexOutOfBoundsException();
@@ -114,6 +125,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
         return Long.valueOf(path);
     }
     private void executeSuccessfulOperations(HttpServletRequest request,Product product,Long productId) throws ProductNotFoundException, NotNumberException, FractionalQuantityException, LessEqualZeroAmountException, EmptyFieldException, ProductNotEnoughException {
+
         Integer quantity = parseAttribute(request,quantityString);
         product = productDao.getProduct(productId);
         cartService.add(cartService.getCart(request),product,quantity);
