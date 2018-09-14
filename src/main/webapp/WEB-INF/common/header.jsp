@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<link rel="stylesheet" href="<c:url value="/styles/w3.css"/>">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/w3.css">
 <html>
 <header class="w3-container w3-light-gray">
     <div style="text-align: center">

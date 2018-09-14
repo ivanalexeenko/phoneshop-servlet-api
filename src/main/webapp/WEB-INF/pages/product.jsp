@@ -3,6 +3,7 @@
 
 <jsp:useBean id="product" scope="request" type="com.es.phoneshop.model.Product"/>
 <jsp:useBean id="message" scope="request" class="java.lang.String"/>
+<jsp:useBean id="success" scope="request" class="java.lang.String"/>
 <jsp:useBean id="quantity" scope="request" class="java.lang.String"/>
 <jsp:useBean id="notNumber" scope="request" class="java.lang.String"/>
 <jsp:useBean id="lessEqualZero" scope="request" class="java.lang.String"/>
@@ -54,7 +55,7 @@
 </c:choose>
 <c:if test="${message != null}">
 <c:choose>
-    <c:when test="${message.contains(ProductDetailsPageServlet.SUCCESS_MESSAGE)}">
+    <c:when test="${message.equals(success)}">
         <div class="w3-panel w3-green w3-display-container">
             <span onclick="this.parentElement.style.display='none'" class="w3-button w3-green w3-large w3-display-topright">&times;</span>
             <h3><fmt:message key="header.success" bundle="${lang}"/></h3>
@@ -78,7 +79,7 @@
                 <c:if test="${message.equals(notEnough)}">
                     <p><fmt:message key="message.not.enough" bundle="${lang}"/></p>
                 </c:if>
-                <c:if test="${message.equals(fractional)}">
+                <c:if test="${message.equals(fractional)}">з
                     <p><fmt:message key="message.fractional" bundle="${lang}"/></p>
                 </c:if>
             </div>
