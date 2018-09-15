@@ -1,7 +1,11 @@
 package com.es.phoneshop.service;
 
-import com.es.phoneshop.exception.ProductNotEnoughException;
-import com.es.phoneshop.model.*;
+import com.es.phoneshop.exception.CommonException;
+import com.es.phoneshop.model.classes.Cart;
+import com.es.phoneshop.model.classes.CartItem;
+import com.es.phoneshop.model.classes.CartService;
+import com.es.phoneshop.model.classes.Product;
+import com.es.phoneshop.model.interfaces.CartServiceInterface;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,20 +34,20 @@ public class CartServiceTest {
     }
 
     @Test
-    public void addProductQuantityLessEqualStockTest() throws ProductNotEnoughException {
+    public void addProductQuantityLessEqualStockTest() throws CommonException {
         cartService.add(cart,productOne,quantityOne);
         cartService.add(cart,productTwo,quantityTwo);
 
         assertTrue(cart.getCartItems().get(0).equals(new CartItem(productOne,quantityOne)) && cart.getCartItems().get(1).equals(new CartItem(productTwo,quantityTwo)));
     }
 
-    @Test(expected = ProductNotEnoughException.class)
-    public void addProductQuantityGreaterStockTest() throws ProductNotEnoughException {
+    @Test(expected = CommonException.class)
+    public void addProductQuantityGreaterStockTest() throws CommonException {
         cartService.add(cart,productThree,quantityThree);
     }
 
     @Test
-    public void addEqualProductsTest() throws ProductNotEnoughException {
+    public void addEqualProductsTest() throws CommonException {
         cartService.add(cart,productOne,quantityTwo);
         cartService.add(cart,productOne,quantityTwo);
 
@@ -52,7 +56,7 @@ public class CartServiceTest {
     }
 
     @Test
-    public void getCartCurrentSessionTest() throws ProductNotEnoughException, InterruptedException {
+    public void getCartCurrentSessionTest() throws CommonException {
         cartService.add(cart,productTwo,stockTwo);
         CartItem cartItem = new CartItem(productTwo,stockTwo);
         setIsNewIntervalBehaviour(timeOne,intervalOne);
@@ -63,7 +67,7 @@ public class CartServiceTest {
     }
 
     @Test
-    public void getCartNewSessionTest() throws ProductNotEnoughException, InterruptedException {
+    public void getCartNewSessionTest() throws CommonException {
         cartService.add(cart,productOne,stockTwo);
         setIsNewIntervalBehaviour(timeTwo,intervalTwo);
 

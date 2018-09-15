@@ -1,6 +1,8 @@
-package com.es.phoneshop.model;
+package com.es.phoneshop.model.classes;
 
-import com.es.phoneshop.exception.ProductNotEnoughException;
+import com.es.phoneshop.exception.CommonException;
+import com.es.phoneshop.model.interfaces.CartServiceInterface;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
@@ -29,9 +31,9 @@ public class CartService implements CartServiceInterface {
         return cart;
     }
 
-    public void add(Cart cart,Product product,Integer quantity) throws ProductNotEnoughException {
+    public void add(Cart cart,Product product,Integer quantity) throws CommonException {
         if(product.getStock() < quantity) {
-            throw new ProductNotEnoughException(ProductNotEnoughException.PRODUCT_NOT_ENOUGH_MESSAGE);
+            throw new CommonException(ApplicationMessage.NOT_ENOUGH);
         }
         Optional<CartItem> optionalCartItem = cart.getCartItems().stream().filter(cartItem -> cartItem.getProduct().equals(product)).findAny();
         if(!optionalCartItem.isPresent()) {
@@ -41,7 +43,7 @@ public class CartService implements CartServiceInterface {
         else {
             optionalCartItem = optionalCartItem.filter(cartItem -> quantity <= cartItem.getProduct().getStock());
             if(!optionalCartItem.isPresent()) {
-                throw new ProductNotEnoughException(ProductNotEnoughException.PRODUCT_NOT_ENOUGH_MESSAGE);
+                throw new CommonException(ApplicationMessage.NOT_ENOUGH);
             }
             product.setStock(product.getStock() - quantity);
             optionalCartItem.get().setProduct(product);

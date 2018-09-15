@@ -1,4 +1,4 @@
-package com.es.phoneshop.model;
+package com.es.phoneshop.model.classes;
 
 import java.util.ArrayList;
 import java.util.List;

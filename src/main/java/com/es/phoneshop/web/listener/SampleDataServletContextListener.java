@@ -1,7 +1,7 @@
 package com.es.phoneshop.web.listener;
-import com.es.phoneshop.model.ArrayListProductDao;
-import com.es.phoneshop.model.CartService;
-import com.es.phoneshop.model.ProductDao;
+import com.es.phoneshop.model.classes.ArrayListProductDao;
+import com.es.phoneshop.model.classes.CartService;
+import com.es.phoneshop.model.interfaces.ProductDao;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;

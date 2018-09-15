@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id = "cart" type = "com.es.phoneshop.model.Cart" scope = "request"/>
+<jsp:useBean id = "cart" type = "com.es.phoneshop.model.classes.Cart" scope = "request"/>
 <html>
 <head>
     <title>Your Cart Page</title>

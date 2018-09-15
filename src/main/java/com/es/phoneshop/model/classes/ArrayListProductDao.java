@@ -1,7 +1,8 @@
 
-package com.es.phoneshop.model;
+package com.es.phoneshop.model.classes;
 
-import com.es.phoneshop.exception.ProductNotFoundException;
+import com.es.phoneshop.exception.CommonException;
+import com.es.phoneshop.model.interfaces.ProductDao;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -31,13 +32,13 @@ public class ArrayListProductDao implements ProductDao {
         return products.stream().filter(product -> product.getPrice() != null && product.getStock() != null && product.getStock() > 0 ).collect(Collectors.toList());
     }
 
-    public Product getProduct(Long id) throws ProductNotFoundException {
+    public Product getProduct(Long id) throws CommonException {
         for(Product currentProduct : products) {
             if(currentProduct.getId().compareTo(id) == 0) {
                 return currentProduct;
             }
         }
-        throw new ProductNotFoundException(ProductNotFoundException.productNotFoundMessage + "(ID:" + id + ")");
+        throw new CommonException(ApplicationMessage.NOT_FOUND);
     }
 
     public void save(Product product) {
@@ -46,14 +47,14 @@ public class ArrayListProductDao implements ProductDao {
         products.add(product);
     }
 
-    public void remove(Long id) throws ProductNotFoundException {
+    public void remove(Long id) throws CommonException {
         for(Product currentProduct : products) {
             if(currentProduct.getId().compareTo(id) == 0) {
                 products.remove(currentProduct);
                 return;
             }
         }
-        throw new ProductNotFoundException(ProductNotFoundException.productNotFoundMessage + "(ID:" + id + ")");
+        throw new CommonException(ApplicationMessage.NOT_FOUND);
     }
 
     public void pushDefaultProducts() {

@@ -1,18 +1,26 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<jsp:useBean id="product" scope="request" type="com.es.phoneshop.model.Product"/>
-<jsp:useBean id="message" scope="request" class="java.lang.String"/>
-<jsp:useBean id="success" scope="request" class="java.lang.String"/>
-<jsp:useBean id="quantity" scope="request" class="java.lang.String"/>
-<jsp:useBean id="notNumber" scope="request" class="java.lang.String"/>
-<jsp:useBean id="lessEqualZero" scope="request" class="java.lang.String"/>
-<jsp:useBean id="emptyField" scope="request" class="java.lang.String"/>
-<jsp:useBean id="notEnough" scope="request" class="java.lang.String"/>
-<jsp:useBean id="fractional" scope="request" class="java.lang.String"/>
+<jsp:useBean id="product" scope="request" type="com.es.phoneshop.model.classes.Product"/>
+
+<jsp:useBean id="messageCode" scope="session" type="java.lang.Integer"/>
+<jsp:useBean id="quantity" scope="session" class="java.lang.String"/>
+
+<jsp:useBean id="SUCCESS_HEAD_STR" scope="request" class="java.lang.String"/>
+<jsp:useBean id="ERROR_HEAD_STR" scope="request" class="java.lang.String"/>
+
+<jsp:useBean id="DEFAULT_CODE" scope="request" type="java.lang.Integer"/>
+<jsp:useBean id="SUCCESS" scope="request" type="java.lang.Integer"/>
+<jsp:useBean id="NOT_NUMBER" scope="request" type="java.lang.Integer"/>
+<jsp:useBean id="EMPTY_FIELD" scope="request" type="java.lang.Integer"/>
+<jsp:useBean id="LESS_EQUAL_ZERO" scope="request" type="java.lang.Integer"/>
+<jsp:useBean id="NOT_ENOUGH" scope="request" type="java.lang.Integer"/>
+<jsp:useBean id="FRACTIONAL" scope="request" type="java.lang.Integer"/>
+<jsp:useBean id="NOT_FOUND" scope="request" type="java.lang.Integer"/>
+
+
 <c:set var="locale" value="${pageContext.request.locale}"/>
 
-<%@ page import="com.es.phoneshop.web.servlet.ProductDetailsPageServlet" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <script>
@@ -43,8 +51,8 @@
     <%@include file="../common/header.jsp"%>
 </head>
 <body>
-<fmt:setBundle basename = "com.es.phoneshop.bundle.ResourceBundleRussian" var = "russianLang"/>
-<fmt:setBundle basename = "com.es.phoneshop.bundle.ResourceBundleEnglishEngland" var="englishEnglandLang"/>
+<fmt:setBundle basename = "i18n.messages_RU" var = "russianLang"/>
+<fmt:setBundle basename = "i18n.messages" var="englishEnglandLang"/>
 <c:choose>
     <c:when test="${locale == 'ru'}">
             <c:set var="lang" value="${russianLang}"/>
@@ -53,9 +61,9 @@
         <c:set var="lang" value="${englishEnglandLang}"/>
     </c:otherwise>
 </c:choose>
-<c:if test="${message != null}">
+<c:if test="${messageCode ne DEFAULT_CODE}">
 <c:choose>
-    <c:when test="${message.equals(success)}">
+    <c:when test="${messageCode eq SUCCESS}">
         <div class="w3-panel w3-green w3-display-container">
             <span onclick="this.parentElement.style.display='none'" class="w3-button w3-green w3-large w3-display-topright">&times;</span>
             <h3><fmt:message key="header.success" bundle="${lang}"/></h3>
@@ -63,23 +71,23 @@
         </div>
     </c:when>
     <c:otherwise>
-        <c:if test="${!message.equals('')}">
+        <c:if test="${messageCode ne DEFAULT_CODE}">
             <div class="w3-panel w3-red w3-display-container">
             <span onclick="this.parentElement.style.display='none'" class="w3-button w3-red w3-large w3-display-topright">&times;</span>
                 <h3><fmt:message key="header.error" bundle="${lang}"/></h3>
-                <c:if test="${message.equals(emptyField)}">
+                <c:if test="${messageCode eq EMPTY_FIELD}">
                     <p><fmt:message key="message.empty.field" bundle="${lang}"/></p>
                 </c:if>
-                <c:if test="${message.equals(lessEqualZero)}">
+                <c:if test="${messageCode eq LESS_EQUAL_ZERO}">
                     <p><fmt:message key="message.less.equal.zero" bundle="${lang}"/></p>
                 </c:if>
-                <c:if test="${message.equals(notNumber)}">
+                <c:if test="${messageCode eq NOT_NUMBER}">
                     <p><fmt:message key="message.not.number" bundle="${lang}"/></p>
                 </c:if>
-                <c:if test="${message.equals(notEnough)}">
+                <c:if test="${messageCode eq NOT_ENOUGH}">
                     <p><fmt:message key="message.not.enough" bundle="${lang}"/></p>
                 </c:if>
-                <c:if test="${message.equals(fractional)}">з
+                <c:if test="${messageCode eq FRACTIONAL}">
                     <p><fmt:message key="message.fractional" bundle="${lang}"/></p>
                 </c:if>
             </div>
@@ -110,7 +118,7 @@
         <td>${product.stock}</td>
         <td>
             <label>
-                <input type="text" name="quantity" id="inputQuantity" autofocus required value="${quantity.equals('1') || quantity.equals('') ? 1 : quantity}" style="text-align: right">
+                <input type="text" name="quantity" id="inputQuantity" autofocus required value="${empty quantity ? 1 : quantity}" style="text-align: right">
             </label>
         </td>
         <td></td>
