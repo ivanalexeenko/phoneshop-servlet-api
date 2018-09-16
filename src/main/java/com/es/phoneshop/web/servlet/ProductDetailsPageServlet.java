@@ -74,9 +74,9 @@ public class ProductDetailsPageServlet extends HttpServlet {
 
     }
 
-    private void setSessionAttributes(HttpServletRequest request,Object ...attributes) {
-        request.getSession().setAttribute(MESSAGE_CODE_ATTRIBUTE_NAME,attributes[0]);
-        request.getSession().setAttribute(QUANTITY_ATTRIBUTE_NAME,attributes[1]);
+    private void setSessionAttributes(HttpServletRequest request,Integer code,String quantity) {
+        request.getSession().setAttribute(MESSAGE_CODE_ATTRIBUTE_NAME,code);
+        request.getSession().setAttribute(QUANTITY_ATTRIBUTE_NAME,quantity);
     }
 
     private Integer parseAttribute(HttpServletRequest request,String attributeString) throws CommonException {
