@@ -36,6 +36,7 @@ public class ArrayListProductDaoTest {
     };
     private final Integer stockArray[] = {-35, 0, 17, -31, 0, 3, 79, 74, 41, 135};
     private Product productArray[] = null;
+
     @Before
     public void init() {
         productDao = ArrayListProductDao.getInstance();
@@ -45,9 +46,11 @@ public class ArrayListProductDaoTest {
             createProduct(i);
         }
     }
+
     @Test
     public void findProductsEmptyListTest() {
         List<Product> products = productDao.findProducts();
+
         assertTrue(products.isEmpty());
     }
 
@@ -58,7 +61,9 @@ public class ArrayListProductDaoTest {
         for (int i = 0; i < 5; i++) {
             productDao.save(productArray[i]);
         }
+
         List<Product> products = productDao.findProducts();
+
         assertTrue(products.isEmpty());
     }
 
@@ -70,7 +75,9 @@ public class ArrayListProductDaoTest {
         for (int i = startIndex; i < startIndex + goodDataAmount; i++) {
             productDao.save(productArray[i]);
         }
+
         List<Product> products = productDao.findProducts();
+
         assertEquals(products.size(), goodDataAmount);
     }
 
@@ -85,7 +92,9 @@ public class ArrayListProductDaoTest {
         for (int goodIndex : goodIndices) {
             productDao.save(productArray[goodIndex]);
         }
+
         List<Product> products = productDao.findProducts();
+
         assertEquals(products.size(), goodIndices.length);
     }
 
@@ -98,7 +107,10 @@ public class ArrayListProductDaoTest {
         for (int i : productIndices) {
             productDao.save(productArray[i]);
         }
-        assertEquals(productDao.getProduct(presentId), product);
+
+        Product compareProduct = productDao.getProduct(presentId);
+
+        assertEquals(compareProduct, product);
     }
 
     @Test(expected = ProductNotFoundException.class)
@@ -108,6 +120,7 @@ public class ArrayListProductDaoTest {
         for (int i : productIndices) {
             productDao.save(productArray[i]);
         }
+
         Product product = productDao.getProduct(absentId);
     }
 
@@ -115,7 +128,9 @@ public class ArrayListProductDaoTest {
     public void saveTest() throws ProductNotFoundException {
         int index = 4;
         Product product = productArray[index];
+
         productDao.save(product);
+
         assertEquals(productDao.getProduct(1L), product);
     }
 
@@ -126,7 +141,9 @@ public class ArrayListProductDaoTest {
             productDao.save(productArray[i]);
         }
         long deleteId = 3;
+
         productDao.remove(deleteId);
+
         Product deletedProduct = productDao.getProduct(deleteId);
     }
 
@@ -137,6 +154,7 @@ public class ArrayListProductDaoTest {
             productDao.save(productArray[i]);
         }
         long deleteId = 5;
+
         productDao.remove(deleteId);
     }
 
@@ -145,6 +163,7 @@ public class ArrayListProductDaoTest {
         productDao = null;
         productArray = null;
     }
+
     private void createProduct(Integer index) {
         productArray[index] = new Product(codes[index], descriptions[index], prices[index], Currency.getInstance(Locale.getDefault()), stockArray[index]);
     }

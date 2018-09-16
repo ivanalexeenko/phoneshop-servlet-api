@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="<c:url value="/styles/w3.css"/>">
 <html>
-<header>
+<header class="w3-container w3-light-gray">
     <div style="text-align: center">
         <i>
             <a href="${pageContext.request.contextPath}/products"><img src="https://cdn3.iconfinder.com/data/icons/ikooni-flat-online-shopping/128/shopping-08-512.png" width="50px" height="50px" alt="Product List Page"></a>
