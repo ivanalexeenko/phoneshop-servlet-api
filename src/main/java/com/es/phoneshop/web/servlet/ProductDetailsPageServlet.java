@@ -108,11 +108,11 @@ public class ProductDetailsPageServlet extends HttpServlet {
 
         request.setAttribute(PRODUCT_ATTRIBUTE_NAME,product);
 
-        for(ApplicationMessage i: ApplicationMessage.values()) {
-            request.setAttribute(i.name(),i.getCode());
-        }
-        request.setAttribute(ApplicationMessage.SUCCESS_HEAD.name() + "_STR",ApplicationMessage.SUCCESS_HEAD.name());
-        request.setAttribute(ApplicationMessage.ERROR_HEAD.name() + "_STR",ApplicationMessage.ERROR_HEAD.name());
+        request.setAttribute(ApplicationMessage.SUCCESS_HEAD.name(),ApplicationMessage.SUCCESS_HEAD.getCode());
+        request.setAttribute(ApplicationMessage.ERROR_HEAD.name(),ApplicationMessage.ERROR_HEAD.getCode());
+        request.setAttribute(ApplicationMessage.SUCCESS.name(),ApplicationMessage.SUCCESS.getCode());
+        request.setAttribute(ApplicationMessage.DEFAULT_CODE.name(),ApplicationMessage.DEFAULT_CODE.getCode());
+
     }
 
     private Long getProductId(HttpServletRequest request) throws NumberFormatException,StringIndexOutOfBoundsException {

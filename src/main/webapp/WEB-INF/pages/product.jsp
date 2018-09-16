@@ -6,18 +6,10 @@
 <jsp:useBean id="messageCode" scope="session" type="java.lang.Integer"/>
 <jsp:useBean id="quantity" scope="session" class="java.lang.String"/>
 
-<jsp:useBean id="SUCCESS_HEAD_STR" scope="request" class="java.lang.String"/>
-<jsp:useBean id="ERROR_HEAD_STR" scope="request" class="java.lang.String"/>
-
 <jsp:useBean id="DEFAULT_CODE" scope="request" type="java.lang.Integer"/>
 <jsp:useBean id="SUCCESS" scope="request" type="java.lang.Integer"/>
-<jsp:useBean id="NOT_NUMBER" scope="request" type="java.lang.Integer"/>
-<jsp:useBean id="EMPTY_FIELD" scope="request" type="java.lang.Integer"/>
-<jsp:useBean id="LESS_EQUAL_ZERO" scope="request" type="java.lang.Integer"/>
-<jsp:useBean id="NOT_ENOUGH" scope="request" type="java.lang.Integer"/>
-<jsp:useBean id="FRACTIONAL" scope="request" type="java.lang.Integer"/>
-<jsp:useBean id="NOT_FOUND" scope="request" type="java.lang.Integer"/>
-
+<jsp:useBean id="SUCCESS_HEAD" scope="request" type="java.lang.Integer"/>
+<jsp:useBean id="ERROR_HEAD" scope="request" type="java.lang.Integer"/>
 
 <c:set var="locale" value="${pageContext.request.locale}"/>
 
@@ -66,30 +58,16 @@
     <c:when test="${messageCode eq SUCCESS}">
         <div class="w3-panel w3-green w3-display-container">
             <span onclick="this.parentElement.style.display='none'" class="w3-button w3-green w3-large w3-display-topright">&times;</span>
-            <h3><fmt:message key="header.success" bundle="${lang}"/></h3>
-            <p><fmt:message key="message.success" bundle="${lang}"/></p>
+            <h3><fmt:message key="${SUCCESS_HEAD}" bundle="${lang}"/></h3>
+            <p><fmt:message key="${SUCCESS}" bundle="${lang}"/></p>
         </div>
     </c:when>
     <c:otherwise>
         <c:if test="${messageCode ne DEFAULT_CODE}">
             <div class="w3-panel w3-red w3-display-container">
             <span onclick="this.parentElement.style.display='none'" class="w3-button w3-red w3-large w3-display-topright">&times;</span>
-                <h3><fmt:message key="header.error" bundle="${lang}"/></h3>
-                <c:if test="${messageCode eq EMPTY_FIELD}">
-                    <p><fmt:message key="message.empty.field" bundle="${lang}"/></p>
-                </c:if>
-                <c:if test="${messageCode eq LESS_EQUAL_ZERO}">
-                    <p><fmt:message key="message.less.equal.zero" bundle="${lang}"/></p>
-                </c:if>
-                <c:if test="${messageCode eq NOT_NUMBER}">
-                    <p><fmt:message key="message.not.number" bundle="${lang}"/></p>
-                </c:if>
-                <c:if test="${messageCode eq NOT_ENOUGH}">
-                    <p><fmt:message key="message.not.enough" bundle="${lang}"/></p>
-                </c:if>
-                <c:if test="${messageCode eq FRACTIONAL}">
-                    <p><fmt:message key="message.fractional" bundle="${lang}"/></p>
-                </c:if>
+                <h3><fmt:message key="${ERROR_HEAD}" bundle="${lang}"/></h3>
+                    <p><fmt:message key="${messageCode}" bundle="${lang}"/></p>
             </div>
         </c:if>
     </c:otherwise>

@@ -9,10 +9,10 @@ public enum ApplicationMessage implements MessageCode {
     ERROR_HEAD(3),
     NOT_NUMBER(4),
     EMPTY_FIELD(5),
-    LESS_EQUAL_ZERO(5),
-    NOT_ENOUGH(6),
-    FRACTIONAL(7),
-    NOT_FOUND(8);
+    LESS_EQUAL_ZERO(6),
+    NOT_ENOUGH(7),
+    FRACTIONAL(8),
+    NOT_FOUND(9);
 
     private final Integer code;
 
