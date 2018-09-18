@@ -12,7 +12,8 @@ public enum ApplicationMessage implements MessageCode {
     LESS_EQUAL_ZERO(6),
     NOT_ENOUGH(7),
     FRACTIONAL(8),
-    NOT_FOUND(9);
+    NOT_FOUND(9),
+    CART_UPDATE_SUCCESS(10);
 
     private final Integer code;
 

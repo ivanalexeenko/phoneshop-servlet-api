@@ -41,14 +41,17 @@ public class CartPageServlet extends HttpServlet {
 
         if(request.getSession().getAttribute(ERRORS_ATTRIBUTE_NAME) != null) {
 
+            request.setAttribute(SUCCESS_ATTRIBUTE_NAME,request.getSession().getAttribute(SUCCESS_ATTRIBUTE_NAME));
             request.setAttribute(ERRORS_ATTRIBUTE_NAME,request.getSession().getAttribute(ERRORS_ATTRIBUTE_NAME));
             request.setAttribute(NEW_QUANTITIES_ATTRIBUTE_NAME,request.getSession().getAttribute(NEW_QUANTITIES_ATTRIBUTE_NAME));
 
         }
-        request.getSession().setAttribute(SUCCESS_ATTRIBUTE_NAME,null);
+        request.getSession().setAttribute(SUCCESS_ATTRIBUTE_NAME,false);
         request.getSession().setAttribute(ERRORS_ATTRIBUTE_NAME, null);
         request.getSession().setAttribute(NEW_QUANTITIES_ATTRIBUTE_NAME,null);
 
+        request.setAttribute(ApplicationMessage.SUCCESS_HEAD.name(),ApplicationMessage.SUCCESS_HEAD.getCode());
+        request.setAttribute(ApplicationMessage.CART_UPDATE_SUCCESS.name(),ApplicationMessage.CART_UPDATE_SUCCESS.getCode());
 
         request.getRequestDispatcher("/WEB-INF/pages/cart.jsp").forward(request, response);
     }

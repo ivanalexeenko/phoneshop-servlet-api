@@ -45,6 +45,9 @@ public class CartService implements CartServiceInterface {
 
         Optional<CartItem> optionalCartItem = cart.getCartItems().stream().filter(cartItem -> cartItem.getProduct().equals(product)).findAny();
         if(!optionalCartItem.isPresent()) {
+            if(product.getStock() < quantity) {
+                throw new CommonException(ApplicationMessage.NOT_ENOUGH);
+            }
             product.setStock(product.getStock() - quantity);
             cart.getCartItems().add(new CartItem(product,quantity));
         }
@@ -57,7 +60,6 @@ public class CartService implements CartServiceInterface {
                 if(product.getStock() < quantity) {
                     throw new CommonException(ApplicationMessage.NOT_ENOUGH);
                 }
-
                 product.setStock(product.getStock() - quantity);
             }
             else {
