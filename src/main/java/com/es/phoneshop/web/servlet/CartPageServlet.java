@@ -65,8 +65,6 @@ public class CartPageServlet extends HttpServlet {
                 Integer quantity = null;
                 quantity = parser.parseAttribute(request,newQuantities[i]);
                 cartService.update(cartService.getCart(request),product,quantity);
-                response.sendRedirect(request.getRequestURI());
-                return;
             }
             catch (NumberFormatException e) {
                 errors[i] = ApplicationMessage.NOT_NUMBER.getCode();

@@ -42,9 +42,7 @@ public class CartService implements CartServiceInterface {
     }
 
     private void addOrUpdate(Cart cart, Product product, Integer quantity, boolean add) throws CommonException {
-        if(product.getStock() < quantity) {
-            throw new CommonException(ApplicationMessage.NOT_ENOUGH);
-        }
+
         Optional<CartItem> optionalCartItem = cart.getCartItems().stream().filter(cartItem -> cartItem.getProduct().equals(product)).findAny();
         if(!optionalCartItem.isPresent()) {
             product.setStock(product.getStock() - quantity);
@@ -56,9 +54,16 @@ public class CartService implements CartServiceInterface {
             int newQuantity = add ? (currentItem.getQuantity() + quantity) : quantity;
 
             if(add) {
+                if(product.getStock() < quantity) {
+                    throw new CommonException(ApplicationMessage.NOT_ENOUGH);
+                }
+
                 product.setStock(product.getStock() - quantity);
             }
             else {
+                if(product.getStock() < (quantity - currentItem.getQuantity())) {
+                    throw new CommonException(ApplicationMessage.NOT_ENOUGH);
+                }
                 if(quantity < currentItem.getQuantity()) {
                     product.setStock(product.getStock() + (currentItem.getQuantity() - quantity));
                 }
