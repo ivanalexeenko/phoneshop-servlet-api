@@ -1,8 +1,9 @@
-package com.es.phoneshop.model;
+package com.es.phoneshop.model.classes;
 
 import java.util.Objects;
 
 public class CartItem {
+
     private Product product;
     private Integer quantity;
 

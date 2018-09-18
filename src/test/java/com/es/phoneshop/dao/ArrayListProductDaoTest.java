@@ -1,16 +1,12 @@
 package com.es.phoneshop.dao;
-import com.es.phoneshop.exception.ProductNotFoundException;
-import com.es.phoneshop.model.ArrayListProductDao;
-import com.es.phoneshop.model.Product;
-import com.es.phoneshop.model.ProductDao;
+import com.es.phoneshop.exception.CommonException;
+import com.es.phoneshop.model.classes.ArrayListProductDao;
+import com.es.phoneshop.model.classes.Product;
+import com.es.phoneshop.model.interfaces.ProductDao;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.runner.JUnitCore;
+
 import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
@@ -99,7 +95,7 @@ public class ArrayListProductDaoTest {
     }
 
     @Test
-    public void getProductPresentIdTest() throws ProductNotFoundException {
+    public void getProductPresentIdTest() throws CommonException {
         int productIndices[] = {2, 7, 9};
         long presentId = 2;
         int index = 7;
@@ -113,8 +109,8 @@ public class ArrayListProductDaoTest {
         assertEquals(compareProduct, product);
     }
 
-    @Test(expected = ProductNotFoundException.class)
-    public void getProductAbsentIdTest() throws ProductNotFoundException {
+    @Test(expected = CommonException.class)
+    public void getProductAbsentIdTest() throws CommonException {
         int productIndices[] = {1, 3, 5, 9};
         long absentId = 5;
         for (int i : productIndices) {
@@ -125,7 +121,7 @@ public class ArrayListProductDaoTest {
     }
 
     @Test
-    public void saveTest() throws ProductNotFoundException {
+    public void saveTest() throws CommonException {
         int index = 4;
         Product product = productArray[index];
 
@@ -134,8 +130,8 @@ public class ArrayListProductDaoTest {
         assertEquals(productDao.getProduct(1L), product);
     }
 
-    @Test(expected = ProductNotFoundException.class)
-    public void removeExistedTest() throws ProductNotFoundException {
+    @Test(expected = CommonException.class)
+    public void removeExistedTest() throws CommonException {
         int indices[] = {6, 7, 8, 9};
         for (int i : indices) {
             productDao.save(productArray[i]);
@@ -147,8 +143,8 @@ public class ArrayListProductDaoTest {
         Product deletedProduct = productDao.getProduct(deleteId);
     }
 
-    @Test(expected = ProductNotFoundException.class)
-    public void removeNotExistedTest() throws ProductNotFoundException {
+    @Test(expected = CommonException.class)
+    public void removeNotExistedTest() throws CommonException {
         int indices[] = {1, 4, 5, 9};
         for (int i : indices) {
             productDao.save(productArray[i]);
