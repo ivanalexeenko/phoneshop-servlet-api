@@ -84,7 +84,7 @@
         <th>Stock</th>
         <th>Quantity</th>
         <th>
-            <input class="w3-button w3-teal" type="submit" value="Add to Cart">
+            <input class="w3-button w3-teal w3-round-xxlarge" type="submit" value="Add to Cart">
         </th>
     </tr>
     <tr>
@@ -96,7 +96,7 @@
         <td>${product.stock}</td>
         <td>
             <label>
-                <input type="text" name="quantity" id="inputQuantity" autofocus required value="${empty quantity ? 1 : quantity}" style="text-align: right">
+                <input type="text" name="quantity" id="inputQuantity" autofocus value="${empty quantity ? 1 : quantity}" style="text-align: right">
             </label>
         </td>
         <td></td>

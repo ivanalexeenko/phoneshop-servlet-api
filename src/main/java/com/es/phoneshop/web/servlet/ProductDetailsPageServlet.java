@@ -6,6 +6,7 @@ import com.es.phoneshop.model.classes.CartService;
 import com.es.phoneshop.model.classes.Product;
 import com.es.phoneshop.model.interfaces.CartServiceInterface;
 import com.es.phoneshop.model.interfaces.ProductDao;
+import com.es.phoneshop.parser.AttributeParser;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,12 +24,12 @@ public class ProductDetailsPageServlet extends HttpServlet {
     private final String MESSAGE_CODE_ATTRIBUTE_NAME = "messageCode";
     private final String QUANTITY_ATTRIBUTE_NAME = "quantity";
     private final String ENCODING = "UTF-8";
+    private AttributeParser parser = new AttributeParser();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setCharacterEncoding(ENCODING);
-
         handleSession(request);
         Product product = null;
 
@@ -79,31 +80,6 @@ public class ProductDetailsPageServlet extends HttpServlet {
         request.getSession().setAttribute(QUANTITY_ATTRIBUTE_NAME,quantity);
     }
 
-    private Integer parseAttribute(HttpServletRequest request,String attributeString) throws CommonException {
-
-        if(attributeString == null || attributeString.isEmpty()) {
-            throw new CommonException(ApplicationMessage.EMPTY_FIELD);
-        }
-        Integer quantity = null;
-        try {
-            char test = attributeString.charAt(attributeString.length() - 1);
-            int numberTest = Integer.parseInt(String.valueOf(test));
-            Double tempDouble =  DecimalFormat.getNumberInstance(request.getLocale()).parse(attributeString).doubleValue();
-            Integer tempInteger = tempDouble.intValue();
-            if(!tempDouble.equals(tempInteger.doubleValue())) {
-                throw new CommonException(ApplicationMessage.FRACTIONAL);
-            }
-            quantity =  tempInteger;
-        }
-        catch (NumberFormatException | ParseException e) {
-            throw new CommonException(ApplicationMessage.NOT_NUMBER);
-        }
-        if(quantity <= 0) {
-            throw new CommonException(ApplicationMessage.LESS_EQUAL_ZERO);
-        }
-        return quantity;
-    }
-
     private void setAttributes(HttpServletRequest request,Product product) {
 
         request.setAttribute(PRODUCT_ATTRIBUTE_NAME,product);
@@ -128,7 +104,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
 
     private Integer executeOperations(HttpServletRequest request,Product product,Long productId,Integer message,String quantityString) throws CommonException {
 
-        Integer quantity = parseAttribute(request,quantityString);
+        Integer quantity = parser.parseAttribute(request,quantityString);
         product = productDao.getProduct(productId);
         cartService.add(cartService.getCart(request),product,quantity);
         message = ApplicationMessage.SUCCESS.getCode();

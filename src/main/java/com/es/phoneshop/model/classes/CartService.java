@@ -2,9 +2,11 @@ package com.es.phoneshop.model.classes;
 
 import com.es.phoneshop.exception.CommonException;
 import com.es.phoneshop.model.interfaces.CartServiceInterface;
+import com.es.phoneshop.model.interfaces.ProductDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Optional;
 
 public class CartService implements CartServiceInterface {
@@ -32,6 +34,14 @@ public class CartService implements CartServiceInterface {
     }
 
     public void add(Cart cart,Product product,Integer quantity) throws CommonException {
+        addOrUpdate(cart,product,quantity,true);
+    }
+
+    public void update(Cart cart,Product product,Integer quantity) throws CommonException {
+        addOrUpdate(cart,product,quantity,false);
+    }
+
+    private void addOrUpdate(Cart cart, Product product, Integer quantity, boolean add) throws CommonException {
         if(product.getStock() < quantity) {
             throw new CommonException(ApplicationMessage.NOT_ENOUGH);
         }
@@ -41,13 +51,36 @@ public class CartService implements CartServiceInterface {
             cart.getCartItems().add(new CartItem(product,quantity));
         }
         else {
-            optionalCartItem = optionalCartItem.filter(cartItem -> quantity <= cartItem.getProduct().getStock());
-            if(!optionalCartItem.isPresent()) {
-                throw new CommonException(ApplicationMessage.NOT_ENOUGH);
+            CartItem currentItem = optionalCartItem.get();
+
+            int newQuantity = add ? (currentItem.getQuantity() + quantity) : quantity;
+
+            if(add) {
+                product.setStock(product.getStock() - quantity);
             }
-            product.setStock(product.getStock() - quantity);
-            optionalCartItem.get().setProduct(product);
-            optionalCartItem.get().setQuantity(optionalCartItem.get().getQuantity() + quantity);
+            else {
+                if(quantity < currentItem.getQuantity()) {
+                    product.setStock(product.getStock() + (currentItem.getQuantity() - quantity));
+                }
+                if(quantity > currentItem.getQuantity()) {
+                    product.setStock(product.getStock() - (quantity - currentItem.getQuantity()));
+                }
+            }
+            currentItem.setQuantity(newQuantity);
+            currentItem.setProduct(product);
         }
     }
+
+    public void remove(Cart cart,Long productId) throws CommonException {
+        ProductDao productDao = ArrayListProductDao.getInstance();
+        Product product = productDao.getProduct(productId);
+        List<CartItem> itemList = cart.getCartItems();
+        Optional<CartItem> itemToRemove = itemList.stream().filter(cartItem -> cartItem.getProduct().equals(product)).findAny();
+        if(!itemToRemove.isPresent()) {
+            throw new CommonException(ApplicationMessage.NOT_FOUND);
+        }
+        product.setStock(product.getStock() + itemToRemove.get().getQuantity());
+        itemToRemove.ifPresent(itemList::remove);
+    }
+
 }

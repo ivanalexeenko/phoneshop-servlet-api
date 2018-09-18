@@ -47,6 +47,16 @@
         <url-pattern>/cart</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>remove</servlet-name>
+        <servlet-class>com.es.phoneshop.web.servlet.RemoveItemServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>remove</servlet-name>
+        <url-pattern>/cart/remove</url-pattern>
+    </servlet-mapping>
+
     <error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/pages/Error404.jsp</location>
