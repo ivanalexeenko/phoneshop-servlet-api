@@ -42,11 +42,12 @@ public class CartService implements CartServiceInterface {
     }
 
     private void addOrUpdate(Cart cart, Product product, Integer quantity, boolean add) throws CommonException {
-        if(product.getStock() < quantity) {
-            throw new CommonException(ApplicationMessage.NOT_ENOUGH);
-        }
+
         Optional<CartItem> optionalCartItem = cart.getCartItems().stream().filter(cartItem -> cartItem.getProduct().equals(product)).findAny();
         if(!optionalCartItem.isPresent()) {
+            if(product.getStock() < quantity) {
+                throw new CommonException(ApplicationMessage.NOT_ENOUGH);
+            }
             product.setStock(product.getStock() - quantity);
             cart.getCartItems().add(new CartItem(product,quantity));
         }
@@ -56,15 +57,16 @@ public class CartService implements CartServiceInterface {
             int newQuantity = add ? (currentItem.getQuantity() + quantity) : quantity;
 
             if(add) {
+                if(product.getStock() < quantity) {
+                    throw new CommonException(ApplicationMessage.NOT_ENOUGH);
+                }
                 product.setStock(product.getStock() - quantity);
             }
             else {
-                if(quantity < currentItem.getQuantity()) {
-                    product.setStock(product.getStock() + (currentItem.getQuantity() - quantity));
+                if(product.getStock() < (quantity - currentItem.getQuantity())) {
+                    throw new CommonException(ApplicationMessage.NOT_ENOUGH);
                 }
-                if(quantity > currentItem.getQuantity()) {
-                    product.setStock(product.getStock() - (quantity - currentItem.getQuantity()));
-                }
+                product.setStock(product.getStock() + currentItem.getQuantity() - quantity);
             }
             currentItem.setQuantity(newQuantity);
             currentItem.setProduct(product);
@@ -72,13 +74,14 @@ public class CartService implements CartServiceInterface {
     }
 
     public void remove(Cart cart,Long productId) throws CommonException {
-        ProductDao productDao = ArrayListProductDao.getInstance();
-        Product product = productDao.getProduct(productId);
+        //ProductDao productDao = ArrayListProductDao.getInstance();
+        //Product product = productDao.getProduct(productId);
         List<CartItem> itemList = cart.getCartItems();
-        Optional<CartItem> itemToRemove = itemList.stream().filter(cartItem -> cartItem.getProduct().equals(product)).findAny();
+        Optional<CartItem> itemToRemove = itemList.stream().filter(cartItem -> cartItem.getProduct().getId().equals(productId)).findAny();
         if(!itemToRemove.isPresent()) {
             throw new CommonException(ApplicationMessage.NOT_FOUND);
         }
+        Product product = itemToRemove.get().getProduct();
         product.setStock(product.getStock() + itemToRemove.get().getQuantity());
         itemToRemove.ifPresent(itemList::remove);
     }

@@ -1,8 +1,9 @@
 package com.es.phoneshop.model.classes;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class CartItem {
+public class CartItem implements Serializable {
 
     private Product product;
     private Integer quantity;
@@ -27,6 +28,7 @@ public class CartItem {
         this.product = product;
         this.quantity = quantity;
     }
+
     public CartItem() {
         this.product = new Product();
         this.quantity = 0;
@@ -34,18 +36,18 @@ public class CartItem {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.product,this.quantity);
+        return Objects.hash(this.product, this.quantity);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(this == obj) {
+        if (this == obj) {
             return true;
         }
-        if(obj == null || this.getClass() != obj.getClass()) {
+        if (obj == null || this.getClass() != obj.getClass()) {
             return false;
         }
-        CartItem cartItem = (CartItem)obj;
+        CartItem cartItem = (CartItem) obj;
         return ((this.product == null && cartItem.product == null) || (this.product != null && this.product.equals(cartItem.product)));
     }
 }

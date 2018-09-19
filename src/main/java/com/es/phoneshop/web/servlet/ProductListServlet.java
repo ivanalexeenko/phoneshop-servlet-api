@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import static com.es.phoneshop.model.classes.Constants.*;
 
 public class ProductListServlet extends HttpServlet {
 
     private ProductDao productDao = ArrayListProductDao.getInstance();
-    private static final String PRODUCTS_ATTRIBUTE_NAME = "products";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.setAttribute(ProductListServlet.PRODUCTS_ATTRIBUTE_NAME, productDao.findProducts());
+        request.setAttribute(PRODUCTS_ATTRIBUTE_NAME, productDao.findProducts());
         request.getRequestDispatcher("/WEB-INF/pages/productList.jsp").forward(request, response);
     }
 }
