@@ -63,11 +63,7 @@ public class ArrayListProductDao implements ProductDao {
         save(new Product("Xiaomi Pocophone F1","Absolutely Fantastic!",BigDecimal.valueOf(460.00),Currency.getInstance(Locale.US),33));
         save(new Product("Sony XZ2 Premium","N/D",BigDecimal.valueOf(750.71),Currency.getInstance(Locale.UK),13));
         save(new Product("Motorola ZZ 11","Delicious",null,Currency.getInstance(Locale.CHINA),0));
-<<<<<<< HEAD:src/main/java/com/es/phoneshop/model/ArrayListProductDao.java
-        save(new Product("Honor 10","What is this?",BigDecimal.valueOf(3421.90),Currency.getInstance(Locale.CHINA),1000));
-=======
         save(new Product("Honor 10","What is this?",BigDecimal.valueOf(3421.90),Currency.getInstance(Locale.CHINA),10000));
->>>>>>> Task_2.5:src/main/java/com/es/phoneshop/model/classes/ArrayListProductDao.java
     }
 
     public void clearAll() {

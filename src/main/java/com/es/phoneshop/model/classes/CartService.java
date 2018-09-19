@@ -74,8 +74,6 @@ public class CartService implements CartServiceInterface {
     }
 
     public void remove(Cart cart,Long productId) throws CommonException {
-        //ProductDao productDao = ArrayListProductDao.getInstance();
-        //Product product = productDao.getProduct(productId);
         List<CartItem> itemList = cart.getCartItems();
         Optional<CartItem> itemToRemove = itemList.stream().filter(cartItem -> cartItem.getProduct().getId().equals(productId)).findAny();
         if(!itemToRemove.isPresent()) {
