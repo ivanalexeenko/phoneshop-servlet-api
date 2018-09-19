@@ -13,13 +13,16 @@ import org.mockito.Mockito;
 
 import javax.servlet.http.*;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CartServiceTest {
     private CartServiceInterface cartService;
     private Cart cart;
-    private final int stockOne = 162,stockTwo = 44,stockThree = 63,quantityOne = 98,quantityTwo = 44,quantityThree = 198;
-    private final int timeOne = 900, intervalOne = 1000,timeTwo = 1000,intervalTwo = 900;
+    private int stockOne = 162,stockTwo = 44,stockThree = 63,quantityOne = 98,quantityTwo = 44,quantityThree = 198;
+    private int newQuantityOne = 98,newQuantityTwo = 40,newQuantityThree = 100,newQuantityFour = 170;
+    private int timeOne = 900, intervalOne = 1000,timeTwo = 1000,intervalTwo = 900;
     private Product productOne,productTwo,productThree;
     private HttpServletRequest request;
     private HttpSession session;
@@ -76,6 +79,15 @@ public class CartServiceTest {
         assertTrue(tempCart.getCartItems().isEmpty());
     }
 
+    @Test(expected = CommonException.class)
+    public void updateStockLessQuantityTest() throws CommonException {
+        cartService.add(cart,productOne,quantityTwo);
+        CartItem optionalCartItem = Mockito.mock(CartItem.class);
+        optionalCartItem = cart.getCartItems().stream().filter(cartItem -> cartItem.getProduct().equals(productOne)).findAny().get();
+        Mockito.when(optionalCartItem.getQuantity()).thenReturn(quantityTwo);
+        cartService.update(cart,productOne,newQuantityFour);
+    }
+
     @After
     public void destroy() {
         cartService = null;
@@ -105,4 +117,5 @@ public class CartServiceTest {
         boolean isNew = (time > session.getMaxInactiveInterval());
         Mockito.when(session.isNew()).thenReturn(isNew);
     }
+
 }

@@ -6,9 +6,11 @@
 <jsp:useBean id="cart" type = "com.es.phoneshop.model.classes.Cart" scope = "request"/>
 <jsp:useBean id="errors" class="java.util.ArrayList" scope="session"/>
 <jsp:useBean id="success" type="java.lang.Boolean" scope="session"/>
+<jsp:useBean id="remove" type="java.lang.Boolean" scope="session"/>
 
 <jsp:useBean id="SUCCESS_HEAD" type="java.lang.Integer" scope="request"/>
 <jsp:useBean id="CART_UPDATE_SUCCESS" type="java.lang.Integer" scope="request"/>
+<jsp:useBean id="CART_ITEM_REMOVE_SUCCESS" type="java.lang.Integer" scope="request"/>
 
 <c:set var="locale" value="${pageContext.request.locale}"/>
 
@@ -50,6 +52,15 @@
         <c:set var="lang" value="${englishEnglandLang}"/>
     </c:otherwise>
 </c:choose>
+<c:if test="${remove}">
+    <div class="w3-panel w3-green w3-small w3-display-container">
+        <span onclick="this.parentElement.style.display='none'" class="w3-button w3-hover-pink w3-green w3-small w3-display-topright">&times;</span>
+        <h3>
+            <fmt:message key="${SUCCESS_HEAD}" bundle="${lang}"/>
+        </h3>
+        <p><fmt:message key="${CART_ITEM_REMOVE_SUCCESS}" bundle="${lang}"/></p>
+    </div>
+</c:if>
         <c:choose>
     <c:when test="${cart.cartItems.isEmpty()}">
         <div style="text-align: center">
@@ -69,6 +80,7 @@
                     <p><fmt:message key="${CART_UPDATE_SUCCESS}" bundle="${lang}"/></p>
                 </div>
             </c:if>
+
             <form method="post" name="quantities">
             <table class="w3-table-all w3-hoverable w3-centered">
                 <tr class="w3-indigo">
@@ -99,7 +111,9 @@
                                 </div>
                             </c:if>
                         </td>
-                        <td>DELETE</td>
+                        <td>
+                            <input type="submit" name="remove_${cartItem.product.id}" class="w3-button w3-black w3-hover-red" value="X">
+                        </td>
                     </tr>
                 </c:forEach>
                 <tr class="w3-hover-none">
@@ -117,13 +131,4 @@
         </c:choose>
 <%@include file="../common/footer.jsp"%>
 </body>
-<script type="text/javascript">
-    function removeCartItem(productId) {
-        var form = document.forms["removeForm"];
-        var hiddenInput = form.productId;
-        hiddenInput.value = productId;
-        form.submit();
-        return false;
-    }
-</script>
 </html>
