@@ -11,8 +11,6 @@
 <jsp:useBean id="SUCCESS_HEAD" scope="request" type="java.lang.Integer"/>
 <jsp:useBean id="ERROR_HEAD" scope="request" type="java.lang.Integer"/>
 
-<c:set var="locale" value="${pageContext.request.locale}"/>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <script>
@@ -43,16 +41,8 @@
     <%@include file="../common/header.jsp"%>
 </head>
 <body>
-<fmt:setBundle basename = "i18n.messages_RU" var = "russianLang"/>
-<fmt:setBundle basename = "i18n.messages" var="englishEnglandLang"/>
-<c:choose>
-    <c:when test="${locale == 'ru'}">
-            <c:set var="lang" value="${russianLang}"/>
-    </c:when>
-    <c:otherwise>
-        <c:set var="lang" value="${englishEnglandLang}"/>
-    </c:otherwise>
-</c:choose>
+<fmt:setBundle basename = "i18n.messages" var="lang"/>
+
 <c:if test="${messageCode ne DEFAULT_CODE}">
 <c:choose>
     <c:when test="${messageCode eq SUCCESS}">
