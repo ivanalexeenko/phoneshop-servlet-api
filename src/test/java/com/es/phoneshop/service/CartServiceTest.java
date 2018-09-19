@@ -18,12 +18,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CartServiceTest {
     private CartServiceInterface cartService;
     private Cart cart;
-    private int stockOne = 162,stockTwo = 44,stockThree = 63,quantityOne = 98,quantityTwo = 44,quantityThree = 198;
+    private int stockOne = 162, stockTwo = 44, stockThree = 63, quantityOne = 98, quantityTwo = 44, quantityThree = 198;
     private int newQuantityOne = 10, newQuantityTwo = 170;
-    private int timeOne = 900, intervalOne = 1000,timeTwo = 1000,intervalTwo = 900;
-    private Long productIdOne = 7L,productIdTwo = 10L;
+    private int timeOne = 900, intervalOne = 1000, timeTwo = 1000, intervalTwo = 900;
+    private Long productIdOne = 7L, productIdTwo = 10L;
     private Product product;
-    private Product productOne,productTwo,productThree;
+    private Product productOne, productTwo, productThree;
     private HttpServletRequest request;
     private HttpSession session;
 
@@ -40,41 +40,41 @@ public class CartServiceTest {
 
     @Test
     public void addProductQuantityLessEqualStockTest() throws CommonException {
-        cartService.add(cart,productOne,quantityOne);
-        cartService.add(cart,productTwo,quantityTwo);
+        cartService.add(cart, productOne, quantityOne);
+        cartService.add(cart, productTwo, quantityTwo);
 
-        assertTrue(cart.getCartItems().get(0).equals(new CartItem(productOne,quantityOne)) && cart.getCartItems().get(1).equals(new CartItem(productTwo,quantityTwo)));
+        assertTrue(cart.getCartItems().get(0).equals(new CartItem(productOne, quantityOne)) && cart.getCartItems().get(1).equals(new CartItem(productTwo, quantityTwo)));
     }
 
     @Test(expected = CommonException.class)
     public void addProductQuantityGreaterStockTest() throws CommonException {
-        cartService.add(cart,productThree,quantityThree);
+        cartService.add(cart, productThree, quantityThree);
     }
 
     @Test
     public void addEqualProductsTest() throws CommonException {
-        cartService.add(cart,productOne,quantityTwo);
-        cartService.add(cart,productOne,quantityTwo);
+        cartService.add(cart, productOne, quantityTwo);
+        cartService.add(cart, productOne, quantityTwo);
 
         assertEquals(1, cart.getCartItems().size());
-        assertEquals(cart.getCartItems().get(0).getProduct(),productOne);
+        assertEquals(cart.getCartItems().get(0).getProduct(), productOne);
     }
 
     @Test
     public void getCartCurrentSessionTest() throws CommonException {
-        cartService.add(cart,productTwo,quantityTwo);
-        CartItem cartItem = new CartItem(productTwo,stockTwo);
-        setIsNewIntervalBehaviour(timeOne,intervalOne);
+        cartService.add(cart, productTwo, quantityTwo);
+        CartItem cartItem = new CartItem(productTwo, stockTwo);
+        setIsNewIntervalBehaviour(timeOne, intervalOne);
 
         CartItem compareItem = cartService.getCart(request).getCartItems().get(0);
 
-        assertEquals(compareItem,cartItem);
+        assertEquals(compareItem, cartItem);
     }
 
     @Test
     public void getCartNewSessionTest() throws CommonException {
-        cartService.add(cart,productOne,quantityTwo);
-        setIsNewIntervalBehaviour(timeTwo,intervalTwo);
+        cartService.add(cart, productOne, quantityTwo);
+        setIsNewIntervalBehaviour(timeTwo, intervalTwo);
 
         Cart tempCart = cartService.getCart(request);
 
@@ -83,38 +83,38 @@ public class CartServiceTest {
 
     @Test(expected = CommonException.class)
     public void updateStockLessQuantityTest() throws CommonException {
-        cartService.add(cart,product,quantityOne);
+        cartService.add(cart, product, quantityOne);
 
-        cartService.update(cart,product, newQuantityTwo);
+        cartService.update(cart, product, newQuantityTwo);
     }
 
     @Test
     public void updateQuantityLessStockTest() throws CommonException {
-        cartService.add(cart,product,quantityOne);
+        cartService.add(cart, product, quantityOne);
         Integer tempStock = product.getStock();
 
-        cartService.update(cart,product, newQuantityOne);
+        cartService.update(cart, product, newQuantityOne);
 
-        assertEquals((Integer)(tempStock - newQuantityOne + quantityOne),product.getStock());
+        assertEquals((Integer) (tempStock - newQuantityOne + quantityOne), product.getStock());
     }
 
     @Test(expected = CommonException.class)
     public void updateNotExistTest() throws CommonException {
-        cartService.add(cart,productTwo,quantityOne);
+        cartService.add(cart, productTwo, quantityOne);
 
-        cartService.update(cart,product, newQuantityOne);
+        cartService.update(cart, product, newQuantityOne);
     }
 
     @Test(expected = CommonException.class)
     public void removeNotExistTest() throws CommonException {
-        cartService.add(cart,product,quantityOne);
+        cartService.add(cart, product, quantityOne);
 
         cartService.remove(cart, productIdTwo);
     }
 
     @Test
     public void removeExistTest() throws CommonException {
-        cartService.add(cart,product,quantityOne);
+        cartService.add(cart, product, quantityOne);
 
         cartService.remove(cart, productIdOne);
 
@@ -147,7 +147,8 @@ public class CartServiceTest {
         Mockito.when(session.getAttribute(CartService.CART_ATTRIBUTE_NAME)).thenReturn(cart);
         Mockito.when(productTwo.getId()).thenReturn(productIdTwo);
     }
-    private void setIsNewIntervalBehaviour(int time,int interval) {
+
+    private void setIsNewIntervalBehaviour(int time, int interval) {
         Mockito.when(session.getMaxInactiveInterval()).thenReturn(interval);
         boolean isNew = (time > session.getMaxInactiveInterval());
         Mockito.when(session.isNew()).thenReturn(isNew);

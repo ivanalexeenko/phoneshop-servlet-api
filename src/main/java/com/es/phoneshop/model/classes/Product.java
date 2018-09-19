@@ -25,19 +25,19 @@ public class Product implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id,this.code,this.description,this.price,this.currency,this.stock);
+        return Objects.hash(this.id, this.code, this.description, this.price, this.currency, this.stock);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(this == obj) {
+        if (this == obj) {
             return true;
         }
-        if(obj == null || obj.getClass() != this.getClass()) {
+        if (obj == null || obj.getClass() != this.getClass()) {
             return false;
         }
-        Product product = (Product)obj;
-        return  ((this.id == null && product.id == null) || (this.id != null && this.id.equals(product.id)))
+        Product product = (Product) obj;
+        return ((this.id == null && product.id == null) || (this.id != null && this.id.equals(product.id)))
                 && ((this.code == null && product.code == null) || (this.code != null && this.code.equals(product.code)))
                 && ((this.description == null && product.description == null) || (this.description != null && this.description.equals(product.description)))
                 && ((this.price == null && product.price == null) || (this.price != null && this.price.equals(product.price)))
