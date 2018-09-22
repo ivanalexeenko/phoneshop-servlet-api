@@ -1,8 +1,8 @@
-package com.es.phoneshop.model.classes;
+package com.es.phoneshop.model.cart;
 
 import com.es.phoneshop.exception.CommonException;
-import com.es.phoneshop.model.interfaces.CartServiceInterface;
-import com.es.phoneshop.model.interfaces.ProductDao;
+import com.es.phoneshop.model.helping.ApplicationMessage;
+import com.es.phoneshop.model.product.Product;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -33,7 +33,7 @@ public class CartService implements CartServiceInterface {
         return cart;
     }
 
-    public void add(Cart cart,Product product,Integer quantity) throws CommonException {
+    public void add(Cart cart, Product product, Integer quantity) throws CommonException {
         addOrUpdate(cart,product,quantity,true);
     }
 

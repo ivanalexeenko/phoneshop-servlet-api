@@ -1,8 +1,8 @@
 
-package com.es.phoneshop.model.classes;
+package com.es.phoneshop.model.product;
 
 import com.es.phoneshop.exception.CommonException;
-import com.es.phoneshop.model.interfaces.ProductDao;
+import com.es.phoneshop.model.helping.ApplicationMessage;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

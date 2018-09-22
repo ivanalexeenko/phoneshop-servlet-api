@@ -1,19 +1,14 @@
 package com.es.phoneshop.service;
 
 import com.es.phoneshop.exception.CommonException;
-import com.es.phoneshop.model.classes.Cart;
-import com.es.phoneshop.model.classes.CartItem;
-import com.es.phoneshop.model.classes.CartService;
-import com.es.phoneshop.model.classes.Product;
-import com.es.phoneshop.model.interfaces.CartServiceInterface;
+import com.es.phoneshop.model.cart.Cart;
+import com.es.phoneshop.model.cart.CartItem;
+import com.es.phoneshop.model.cart.CartService;
+import com.es.phoneshop.model.product.Product;
+import com.es.phoneshop.model.cart.CartServiceInterface;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-<<<<<<< HEAD
-import org.junit.jupiter.api.BeforeEach;
-import org.mockito.Mock;
-=======
->>>>>>> Task_2.5
 import org.mockito.Mockito;
 
 import javax.servlet.http.*;
@@ -44,69 +39,32 @@ public class CartServiceTest {
     }
 
     @Test
-<<<<<<< HEAD
-    public void addProductQuantityLessEqualStockTest() throws ProductNotEnoughException {
-=======
     public void addProductQuantityLessEqualStockTest() throws CommonException {
-<<<<<<< HEAD
->>>>>>> Task_2.5
-        cartService.add(cart,productOne,quantityOne);
-        cartService.add(cart,productTwo,quantityTwo);
-=======
         cartService.add(cart, productOne, quantityOne);
         cartService.add(cart, productTwo, quantityTwo);
->>>>>>> Task_2.5
 
         assertTrue(cart.getCartItems().get(0).equals(new CartItem(productOne, quantityOne)) && cart.getCartItems().get(1).equals(new CartItem(productTwo, quantityTwo)));
     }
 
-<<<<<<< HEAD
-    @Test(expected = ProductNotEnoughException.class)
-    public void addProductQuantityGreaterStockTest() throws ProductNotEnoughException {
-=======
     @Test(expected = CommonException.class)
     public void addProductQuantityGreaterStockTest() throws CommonException {
-<<<<<<< HEAD
->>>>>>> Task_2.5
         cartService.add(cart,productThree,quantityThree);
-=======
-        cartService.add(cart, productThree, quantityThree);
->>>>>>> Task_2.5
     }
 
     @Test
-<<<<<<< HEAD
-    public void addEqualProductsTest() throws ProductNotEnoughException {
-=======
     public void addEqualProductsTest() throws CommonException {
-<<<<<<< HEAD
->>>>>>> Task_2.5
-        cartService.add(cart,productOne,quantityTwo);
-        cartService.add(cart,productOne,quantityTwo);
-=======
         cartService.add(cart, productOne, quantityTwo);
         cartService.add(cart, productOne, quantityTwo);
->>>>>>> Task_2.5
 
         assertEquals(1, cart.getCartItems().size());
         assertEquals(cart.getCartItems().get(0).getProduct(), productOne);
     }
 
     @Test
-<<<<<<< HEAD
-    public void getCartCurrentSessionTest() throws ProductNotEnoughException, InterruptedException {
-=======
     public void getCartCurrentSessionTest() throws CommonException {
-<<<<<<< HEAD
->>>>>>> Task_2.5
-        cartService.add(cart,productTwo,stockTwo);
-        CartItem cartItem = new CartItem(productTwo,stockTwo);
-        setIsNewIntervalBehaviour(timeOne,intervalOne);
-=======
         cartService.add(cart, productTwo, quantityTwo);
         CartItem cartItem = new CartItem(productTwo, stockTwo);
         setIsNewIntervalBehaviour(timeOne, intervalOne);
->>>>>>> Task_2.5
 
         CartItem compareItem = cartService.getCart(request).getCartItems().get(0);
 
@@ -114,18 +72,9 @@ public class CartServiceTest {
     }
 
     @Test
-<<<<<<< HEAD
-    public void getCartNewSessionTest() throws ProductNotEnoughException, InterruptedException {
-=======
     public void getCartNewSessionTest() throws CommonException {
-<<<<<<< HEAD
->>>>>>> Task_2.5
-        cartService.add(cart,productOne,stockTwo);
-        setIsNewIntervalBehaviour(timeTwo,intervalTwo);
-=======
         cartService.add(cart, productOne, quantityTwo);
         setIsNewIntervalBehaviour(timeTwo, intervalTwo);
->>>>>>> Task_2.5
 
         Cart tempCart = cartService.getCart(request);
 

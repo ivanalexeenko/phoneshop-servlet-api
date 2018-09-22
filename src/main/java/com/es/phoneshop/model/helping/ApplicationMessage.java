@@ -1,6 +1,4 @@
-package com.es.phoneshop.model.classes;
-
-import com.es.phoneshop.model.interfaces.MessageCode;
+package com.es.phoneshop.model.helping;
 
 public enum ApplicationMessage implements MessageCode {
     DEFAULT_CODE(0),

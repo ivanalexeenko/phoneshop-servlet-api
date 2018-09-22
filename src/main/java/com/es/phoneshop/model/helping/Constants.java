@@ -1,4 +1,4 @@
-package com.es.phoneshop.model.classes;
+package com.es.phoneshop.model.helping;
 
 public class Constants {
     public static final String PRODUCT_ATTRIBUTE_NAME = "product";

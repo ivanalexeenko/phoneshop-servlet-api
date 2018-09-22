@@ -3,7 +3,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
-<jsp:useBean id="cart" type="com.es.phoneshop.model.classes.Cart" scope="request"/>
+<jsp:useBean id="cart" type="com.es.phoneshop.model.cart.Cart" scope="request"/>
 <jsp:useBean id="errors" class="java.util.ArrayList" scope="session"/>
 <jsp:useBean id="success" type="java.lang.Boolean" scope="session"/>
 <jsp:useBean id="remove" type="java.lang.Boolean" scope="session"/>

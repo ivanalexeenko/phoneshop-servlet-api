@@ -1,4 +1,4 @@
-package com.es.phoneshop.model.classes;
+package com.es.phoneshop.model.cart;
 
 import java.io.Serializable;
 import java.util.ArrayList;

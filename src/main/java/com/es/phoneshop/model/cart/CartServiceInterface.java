@@ -1,8 +1,7 @@
-package com.es.phoneshop.model.interfaces;
+package com.es.phoneshop.model.cart;
 
 import com.es.phoneshop.exception.CommonException;
-import com.es.phoneshop.model.classes.Cart;
-import com.es.phoneshop.model.classes.Product;
+import com.es.phoneshop.model.product.Product;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -1,7 +1,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<jsp:useBean id="product" scope="request" type="com.es.phoneshop.model.classes.Product"/>
+<jsp:useBean id="product" scope="request" type="com.es.phoneshop.model.product.Product"/>
 
 <jsp:useBean id="messageCode" scope="session" type="java.lang.Integer"/>
 <jsp:useBean id="quantity" scope="session" class="java.lang.String"/>

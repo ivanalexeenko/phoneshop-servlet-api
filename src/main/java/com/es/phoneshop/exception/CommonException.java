@@ -1,7 +1,7 @@
 package com.es.phoneshop.exception;
 
-import com.es.phoneshop.model.classes.ApplicationMessage;
-import com.es.phoneshop.model.interfaces.MessageCode;
+import com.es.phoneshop.model.helping.ApplicationMessage;
+import com.es.phoneshop.model.helping.MessageCode;
 
 public class CommonException extends Exception implements MessageCode {
 
