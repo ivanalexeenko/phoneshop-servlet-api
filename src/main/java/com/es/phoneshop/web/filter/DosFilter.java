@@ -4,6 +4,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.es.phoneshop.model.helping.Constants.ENCODING;
 
@@ -19,7 +20,7 @@ public class DosFilter implements Filter {
     private String address;
     private String WAIT_ATTRIBUTE_NAME = "wait";
 
-    Map requestCountMap = Collections.synchronizedMap(new HashMap<>());
+    private Map requestCountMap = Collections.synchronizedMap(new HashMap<>());
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -38,16 +39,16 @@ public class DosFilter implements Filter {
             ((HttpServletResponse) servletResponse).sendError(TOO_MANY_REQUESTS_ERROR);
         } else {
             address = servletRequest.getRemoteAddr();
-            Integer count = (Integer) requestCountMap.get(address);
+            AtomicInteger count = (AtomicInteger) requestCountMap.get(address);
             if (count == null) {
-                count = 1;
+                count = new AtomicInteger(1);
             } else {
-                count++;
+                count.incrementAndGet();
             }
 
             requestCountMap.put(address, count);
 
-            if (count > MAX_REQUEST_COUNT) {
+            if (count.intValue() > MAX_REQUEST_COUNT) {
 
                 accessAllowed = false;
 

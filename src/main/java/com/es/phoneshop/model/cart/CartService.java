@@ -9,9 +9,9 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
-public class CartService implements CartServiceInterface {
+import static com.es.phoneshop.model.helping.Constants.CART_ATTRIBUTE_NAME;
 
-    public static final String CART_ATTRIBUTE_NAME = "cart";
+public class CartService implements CartServiceInterface {
 
     private static class CartServiceHelper {
         private static final CartService INSTANCE = new CartService();
@@ -22,10 +22,10 @@ public class CartService implements CartServiceInterface {
 
     public Cart getCart(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        Cart cart = (Cart) session.getAttribute(CartService.CART_ATTRIBUTE_NAME);
+        Cart cart = (Cart) session.getAttribute(CART_ATTRIBUTE_NAME);
         if(cart == null) {
             cart = new Cart();
-            session.setAttribute(CartService.CART_ATTRIBUTE_NAME,cart);
+            session.setAttribute(CART_ATTRIBUTE_NAME,cart);
         }
         if(session.isNew()) {
             return new Cart();

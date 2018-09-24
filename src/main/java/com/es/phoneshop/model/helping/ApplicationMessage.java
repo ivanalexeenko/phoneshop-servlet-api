@@ -12,14 +12,15 @@ public enum ApplicationMessage implements MessageCode {
     FRACTIONAL(8),
     NOT_FOUND(9),
     CART_UPDATE_SUCCESS(10),
-    CART_ITEM_REMOVE_SUCCESS(11);
+    CART_ITEM_REMOVE_SUCCESS(11),
+    EMPTY_FIELDS(12);
 
     private final Integer code;
 
     public static String[] bundleNames = {"default", "message.success.head", "message.success",
             "error.head", "error.not.number", "error.empty.field", "error.less.equal.zero",
             "error.not.enough", "error.fractonal", "error.not.found",
-            "message.cart.update.success", "message.cart.remove.success"
+            "message.cart.update.success", "message.cart.remove.success", "error.empty.fields"
     };
 
     private ApplicationMessage(Integer code) {

@@ -56,7 +56,6 @@
                 <p><fmt:message key="${bundleNames[cartUpdateSuccess]}" bundle="${lang}"/></p>
             </div>
         </c:if>
-
         <form method="post" name="quantities">
             <table class="w3-table-all w3-hoverable w3-centered">
                 <tr class="w3-indigo">
@@ -97,17 +96,11 @@
                         </td>
                     </tr>
                 </c:forEach>
-                <tr class="w3-hover-none">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><input type="submit" class="w3-button w3-teal w3-round-xxlarge w3-xlarge" value="Update"></td>
-                </tr>
+
             </table>
+            <p><input type="submit" class="w3-right w3-button w3-teal w3-round-xxlarge w3-xlarge" value="Update"></p>
         </form>
+        <a class="w3-right w3-button w3-teal w3-round-xxlarge w3-xlarge" href="${pageContext.request.contextPath}/checkout">Checkout</a>
     </c:otherwise>
 </c:choose>
 <%@include file="../common/footer.jsp" %>
