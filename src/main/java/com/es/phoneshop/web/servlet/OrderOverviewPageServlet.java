@@ -3,8 +3,8 @@ package com.es.phoneshop.web.servlet;
 import com.es.phoneshop.exception.CommonException;
 import com.es.phoneshop.model.helping.ApplicationMessage;
 import com.es.phoneshop.model.order.Order;
+import com.es.phoneshop.model.order.OrderServiceImpl;
 import com.es.phoneshop.model.order.OrderService;
-import com.es.phoneshop.model.order.OrderServiceInterface;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +22,7 @@ public class OrderOverviewPageServlet extends HttpServlet {
 
         try {
             String pathOrderId = getOrderId(request);
-            OrderServiceInterface orderService = OrderService.getInstance();
+            OrderService orderService = OrderServiceImpl.getInstance();
             Optional<Order> optionalOrder = orderService.getOrder(pathOrderId);
 
             if(optionalOrder.isPresent()) {

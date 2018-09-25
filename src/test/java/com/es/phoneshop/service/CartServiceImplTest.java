@@ -3,9 +3,9 @@ package com.es.phoneshop.service;
 import com.es.phoneshop.exception.CommonException;
 import com.es.phoneshop.model.cart.Cart;
 import com.es.phoneshop.model.cart.CartItem;
-import com.es.phoneshop.model.cart.CartService;
+import com.es.phoneshop.model.cart.CartServiceImpl;
 import com.es.phoneshop.model.product.Product;
-import com.es.phoneshop.model.cart.CartServiceInterface;
+import com.es.phoneshop.model.cart.CartService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,8 +15,8 @@ import javax.servlet.http.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CartServiceTest {
-    private CartServiceInterface cartService;
+public class CartServiceImplTest {
+    private CartService cartService;
     private Cart cart;
     private int stockOne = 162, stockTwo = 44, stockThree = 63, quantityOne = 98, quantityTwo = 44, quantityThree = 198;
     private int newQuantityOne = 10, newQuantityTwo = 170;
@@ -29,7 +29,7 @@ public class CartServiceTest {
 
     @Before
     public void init() {
-        cartService = CartService.getInstance();
+        cartService = CartServiceImpl.getInstance();
         cart = new Cart();
         product = new Product();
         product.setStock(stockOne);
@@ -144,7 +144,7 @@ public class CartServiceTest {
         Mockito.when(productTwo.getStock()).thenReturn(stockTwo);
         Mockito.when(productThree.getStock()).thenReturn(stockThree);
         Mockito.when(request.getSession()).thenReturn(session);
-        Mockito.when(session.getAttribute(CartService.CART_ATTRIBUTE_NAME)).thenReturn(cart);
+        Mockito.when(session.getAttribute(CartServiceImpl.CART_ATTRIBUTE_NAME)).thenReturn(cart);
         Mockito.when(productTwo.getId()).thenReturn(productIdTwo);
     }
 

@@ -2,8 +2,8 @@ package com.es.phoneshop.web.servlet;
 
 import com.es.phoneshop.exception.CommonException;
 import com.es.phoneshop.model.cart.CartItem;
+import com.es.phoneshop.model.cart.CartServiceImpl;
 import com.es.phoneshop.model.cart.CartService;
-import com.es.phoneshop.model.cart.CartServiceInterface;
 import com.es.phoneshop.model.helping.ApplicationMessage;
 import com.es.phoneshop.model.product.ArrayListProductDao;
 import com.es.phoneshop.model.product.Product;
@@ -23,7 +23,7 @@ import static com.es.phoneshop.model.helping.Constants.*;
 
 public class CartPageServlet extends HttpServlet {
 
-    private CartServiceInterface cartService = CartService.getInstance();
+    private CartService cartService = CartServiceImpl.getInstance();
     private AttributeParser parser = new AttributeParser();
     private ProductDao productDao = ArrayListProductDao.getInstance();
 

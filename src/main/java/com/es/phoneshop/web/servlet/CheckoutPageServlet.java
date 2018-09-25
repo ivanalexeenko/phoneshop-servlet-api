@@ -2,11 +2,11 @@ package com.es.phoneshop.web.servlet;
 
 import com.es.phoneshop.model.cart.Cart;
 import com.es.phoneshop.model.cart.CartItem;
+import com.es.phoneshop.model.cart.CartServiceImpl;
 import com.es.phoneshop.model.cart.CartService;
-import com.es.phoneshop.model.cart.CartServiceInterface;
 import com.es.phoneshop.model.helping.ApplicationMessage;
 import com.es.phoneshop.model.order.Order;
-import com.es.phoneshop.model.order.OrderService;
+import com.es.phoneshop.model.order.OrderServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +20,7 @@ import java.util.Locale;
 import static com.es.phoneshop.model.helping.Constants.*;
 
 public class CheckoutPageServlet extends HttpServlet {
-    private CartServiceInterface cartService = CartService.getInstance();
+    private CartService cartService = CartServiceImpl.getInstance();
     private Currency currency = Currency.getInstance(Locale.US);
 
     @Override
@@ -50,7 +50,7 @@ public class CheckoutPageServlet extends HttpServlet {
         }
         else  {
             Cart cart = cartService.getCart(request);
-            Order order = OrderService.getInstance().placeOrder(cart,name,address,phone,calculateTotalCost(cart));
+            Order order = OrderServiceImpl.getInstance().placeOrder(cart,name,address,phone,calculateTotalCost(cart));
             response.sendRedirect(request.getContextPath() + "/orderOverview/" + order.getOrderId());
         }
     }
