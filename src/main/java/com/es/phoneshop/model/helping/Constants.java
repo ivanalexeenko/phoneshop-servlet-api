@@ -1,4 +1,4 @@
-package com.es.phoneshop.model.classes;
+package com.es.phoneshop.model.helping;
 
 public class Constants {
     public static final String PRODUCT_ATTRIBUTE_NAME = "product";
@@ -20,6 +20,14 @@ public class Constants {
     public static final String ERROR_HEAD_ATTRIBUTE_NAME = "errorHead";
     public static final String CART_UPDATE_SUCCESS = "cartUpdateSuccess";
     public static final String CART_ITEM_REMOVE_SUCCESS = "cartItemRemoveSuccess";
+    public static final String TOTAL_ATTRIBUTE_NAME = "total";
+    public static final String CURRENCY_ATTRIBUTE_NAME = "currency";
+    public static final String IS_ERROR_ATTRIBUTE_NAME = "isError";
+    public static final String ERROR_ATTRIBUTE_NAME = "error";
+    public static final String ORDER_ATTRIBUTE_NAME = "order";
+    public static final String NAME_ATTRIBUTE_NAME = "name";
+    public static final String ADDRESS_ATTRIBUTE_NAME = "address";
+    public static final String PHONE_ATTRIBUTE_NAME = "phone";
 
     public static final int MAX_SESSION_TIMEOUT_IN_SECONDS = 20 * 60;
 }

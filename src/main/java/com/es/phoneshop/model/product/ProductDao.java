@@ -1,7 +1,6 @@
-package com.es.phoneshop.model.interfaces;
+package com.es.phoneshop.model.product;
 
 import com.es.phoneshop.exception.CommonException;
-import com.es.phoneshop.model.classes.Product;
 
 import java.util.List;
 

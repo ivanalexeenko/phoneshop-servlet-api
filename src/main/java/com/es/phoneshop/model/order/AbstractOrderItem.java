@@ -1,9 +1,11 @@
-package com.es.phoneshop.model.classes;
+package com.es.phoneshop.model.order;
+
+import com.es.phoneshop.model.product.Product;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-public class CartItem implements Serializable {
+public abstract class AbstractOrderItem implements Serializable {
 
     private Product product;
     private Integer quantity;
@@ -24,12 +26,12 @@ public class CartItem implements Serializable {
         return quantity;
     }
 
-    public CartItem(Product product, Integer quantity) {
+    public AbstractOrderItem(Product product, Integer quantity) {
         this.product = product;
         this.quantity = quantity;
     }
 
-    public CartItem() {
+    public AbstractOrderItem() {
         this.product = new Product();
         this.quantity = 0;
     }
@@ -47,7 +49,7 @@ public class CartItem implements Serializable {
         if (obj == null || this.getClass() != obj.getClass()) {
             return false;
         }
-        CartItem cartItem = (CartItem) obj;
-        return ((this.product == null && cartItem.product == null) || (this.product != null && this.product.equals(cartItem.product)));
+        AbstractOrderItem orderItem = (AbstractOrderItem) obj;
+        return ((this.product == null && orderItem.product == null) || (this.product != null && this.product.equals(orderItem.product)));
     }
 }

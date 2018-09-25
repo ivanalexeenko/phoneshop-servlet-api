@@ -1,9 +1,9 @@
 package com.es.phoneshop.dao;
 
 import com.es.phoneshop.exception.CommonException;
-import com.es.phoneshop.model.classes.ArrayListProductDao;
-import com.es.phoneshop.model.classes.Product;
-import com.es.phoneshop.model.interfaces.ProductDao;
+import com.es.phoneshop.model.product.ArrayListProductDao;
+import com.es.phoneshop.model.product.Product;
+import com.es.phoneshop.model.product.ProductDao;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

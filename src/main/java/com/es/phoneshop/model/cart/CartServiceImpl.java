@@ -1,31 +1,31 @@
-package com.es.phoneshop.model.classes;
+package com.es.phoneshop.model.cart;
 
 import com.es.phoneshop.exception.CommonException;
-import com.es.phoneshop.model.interfaces.CartServiceInterface;
-import com.es.phoneshop.model.interfaces.ProductDao;
+import com.es.phoneshop.model.helping.ApplicationMessage;
+import com.es.phoneshop.model.product.Product;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
-public class CartService implements CartServiceInterface {
+import static com.es.phoneshop.model.helping.Constants.CART_ATTRIBUTE_NAME;
 
-    public static final String CART_ATTRIBUTE_NAME = "cart";
+public class CartServiceImpl implements CartService {
 
     private static class CartServiceHelper {
-        private static final CartService INSTANCE = new CartService();
+        private static final CartServiceImpl INSTANCE = new CartServiceImpl();
     }
-    public static CartService getInstance() {
+    public static CartServiceImpl getInstance() {
         return CartServiceHelper.INSTANCE;
     }
 
     public Cart getCart(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        Cart cart = (Cart) session.getAttribute(CartService.CART_ATTRIBUTE_NAME);
+        Cart cart = (Cart) session.getAttribute(CART_ATTRIBUTE_NAME);
         if(cart == null) {
             cart = new Cart();
-            session.setAttribute(CartService.CART_ATTRIBUTE_NAME,cart);
+            session.setAttribute(CART_ATTRIBUTE_NAME,cart);
         }
         if(session.isNew()) {
             return new Cart();
@@ -33,7 +33,7 @@ public class CartService implements CartServiceInterface {
         return cart;
     }
 
-    public void add(Cart cart,Product product,Integer quantity) throws CommonException {
+    public void add(Cart cart, Product product, Integer quantity) throws CommonException {
         addOrUpdate(cart,product,quantity,true);
     }
 
@@ -74,8 +74,6 @@ public class CartService implements CartServiceInterface {
     }
 
     public void remove(Cart cart,Long productId) throws CommonException {
-        //ProductDao productDao = ArrayListProductDao.getInstance();
-        //Product product = productDao.getProduct(productId);
         List<CartItem> itemList = cart.getCartItems();
         Optional<CartItem> itemToRemove = itemList.stream().filter(cartItem -> cartItem.getProduct().getId().equals(productId)).findAny();
         if(!itemToRemove.isPresent()) {

@@ -1,12 +1,12 @@
 package com.es.phoneshop.web.servlet;
 
 import com.es.phoneshop.exception.*;
-import com.es.phoneshop.model.classes.ApplicationMessage;
-import com.es.phoneshop.model.classes.ArrayListProductDao;
-import com.es.phoneshop.model.classes.CartService;
-import com.es.phoneshop.model.classes.Product;
-import com.es.phoneshop.model.interfaces.CartServiceInterface;
-import com.es.phoneshop.model.interfaces.ProductDao;
+import com.es.phoneshop.model.helping.ApplicationMessage;
+import com.es.phoneshop.model.product.ArrayListProductDao;
+import com.es.phoneshop.model.cart.CartServiceImpl;
+import com.es.phoneshop.model.product.Product;
+import com.es.phoneshop.model.cart.CartService;
+import com.es.phoneshop.model.product.ProductDao;
 import com.es.phoneshop.parser.AttributeParser;
 
 import javax.servlet.ServletException;
@@ -15,18 +15,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.es.phoneshop.model.classes.Constants.*;
+import static com.es.phoneshop.model.helping.Constants.*;
 
 public class ProductDetailsPageServlet extends HttpServlet {
 
     private ProductDao productDao = ArrayListProductDao.getInstance();
-    private CartServiceInterface cartService = CartService.getInstance();
+    private CartService cartService = CartServiceImpl.getInstance();
     private AttributeParser parser = new AttributeParser();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.setCharacterEncoding(ENCODING);
         handleSession(request);
         Product product = null;
 
@@ -42,8 +41,6 @@ public class ProductDetailsPageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        request.setCharacterEncoding(ENCODING);
 
         Long productId = getProductId(request);
         Product product = null;

@@ -1,7 +1,7 @@
 package com.es.phoneshop.parser;
 
 import com.es.phoneshop.exception.CommonException;
-import com.es.phoneshop.model.classes.ApplicationMessage;
+import com.es.phoneshop.model.helping.ApplicationMessage;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.DecimalFormat;

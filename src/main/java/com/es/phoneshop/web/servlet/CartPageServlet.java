@@ -1,9 +1,13 @@
 package com.es.phoneshop.web.servlet;
 
 import com.es.phoneshop.exception.CommonException;
-import com.es.phoneshop.model.classes.*;
-import com.es.phoneshop.model.interfaces.CartServiceInterface;
-import com.es.phoneshop.model.interfaces.ProductDao;
+import com.es.phoneshop.model.cart.CartItem;
+import com.es.phoneshop.model.cart.CartServiceImpl;
+import com.es.phoneshop.model.cart.CartService;
+import com.es.phoneshop.model.helping.ApplicationMessage;
+import com.es.phoneshop.model.product.ArrayListProductDao;
+import com.es.phoneshop.model.product.Product;
+import com.es.phoneshop.model.product.ProductDao;
 import com.es.phoneshop.parser.AttributeParser;
 
 import javax.servlet.ServletException;
@@ -11,23 +15,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
-import static com.es.phoneshop.model.classes.Constants.*;
+import static com.es.phoneshop.model.helping.Constants.*;
 
 public class CartPageServlet extends HttpServlet {
 
-    private CartServiceInterface cartService = CartService.getInstance();
+    private CartService cartService = CartServiceImpl.getInstance();
     private AttributeParser parser = new AttributeParser();
     private ProductDao productDao = ArrayListProductDao.getInstance();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding(ENCODING);
         request.getSession().setMaxInactiveInterval(MAX_SESSION_TIMEOUT_IN_SECONDS);
 
         handleSession(request);
@@ -43,7 +44,6 @@ public class CartPageServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding(ENCODING);
 
         boolean isRemove = false;
 

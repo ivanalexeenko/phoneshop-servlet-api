@@ -1,14 +1,14 @@
 package com.es.phoneshop.web.servlet;
 
-import com.es.phoneshop.model.classes.ArrayListProductDao;
-import com.es.phoneshop.model.interfaces.ProductDao;
+import com.es.phoneshop.model.product.ArrayListProductDao;
+import com.es.phoneshop.model.product.ProductDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import static com.es.phoneshop.model.classes.Constants.*;
+import static com.es.phoneshop.model.helping.Constants.*;
 
 public class ProductListServlet extends HttpServlet {
 
