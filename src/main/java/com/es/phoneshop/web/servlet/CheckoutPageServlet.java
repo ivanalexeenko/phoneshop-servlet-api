@@ -45,7 +45,7 @@ public class CheckoutPageServlet extends HttpServlet {
 
         Boolean isError = (name.isEmpty() || address.isEmpty() || phone.isEmpty());
         if(isError) {
-            request.getSession().setAttribute(IS_ERROR_ATTRIBUTE_NAME,isError);
+            setSessionAttributes(request,isError,name,address,phone);
             response.sendRedirect(request.getRequestURI());
         }
         else  {
@@ -59,8 +59,11 @@ public class CheckoutPageServlet extends HttpServlet {
         Boolean isError = (Boolean)request.getSession().getAttribute(IS_ERROR_ATTRIBUTE_NAME);
         if(isError != null) {
             request.setAttribute(IS_ERROR_ATTRIBUTE_NAME,isError);
+            request.setAttribute(NAME_ATTRIBUTE_NAME,request.getSession().getAttribute(NAME_ATTRIBUTE_NAME));
+            request.setAttribute(ADDRESS_ATTRIBUTE_NAME,request.getSession().getAttribute(ADDRESS_ATTRIBUTE_NAME));
+            request.setAttribute(PHONE_ATTRIBUTE_NAME,request.getSession().getAttribute(PHONE_ATTRIBUTE_NAME));
         }
-        request.getSession().setAttribute(IS_ERROR_ATTRIBUTE_NAME,false);
+        setSessionAttributes(request,false,null,null,null);
     }
 
     private void setAttributes(HttpServletRequest request,Cart cart) {
@@ -70,6 +73,13 @@ public class CheckoutPageServlet extends HttpServlet {
         request.setAttribute(BUNDLE_NAMES_ATTRIBUTE_NAME,ApplicationMessage.bundleNames);
         request.setAttribute(ERROR_HEAD_ATTRIBUTE_NAME,ApplicationMessage.ERROR_HEAD.getCode());
         request.setAttribute(ERROR_ATTRIBUTE_NAME,ApplicationMessage.EMPTY_FIELDS.getCode());
+    }
+
+    private void setSessionAttributes(HttpServletRequest request,Boolean isError,String name,String address,String phone) {
+        request.getSession().setAttribute(IS_ERROR_ATTRIBUTE_NAME,isError);
+        request.getSession().setAttribute(NAME_ATTRIBUTE_NAME,name);
+        request.getSession().setAttribute(ADDRESS_ATTRIBUTE_NAME,address);
+        request.getSession().setAttribute(PHONE_ATTRIBUTE_NAME,phone);
     }
 
     private BigDecimal calculateTotalCost(Cart cart) {

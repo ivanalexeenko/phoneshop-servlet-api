@@ -4,6 +4,7 @@
 
 <jsp:useBean id="order" scope="request" type="com.es.phoneshop.model.order.Order"/>
 <jsp:useBean id="currency" scope="request" type="java.util.Currency"/>
+
 <html>
 <head>
     <META http-equiv="Content-Type" content="text/html; charset=UTF-8">

@@ -6,24 +6,37 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.es.phoneshop.model.helping.Constants.ENCODING;
+import static com.es.phoneshop.model.helping.Constants.*;
 
 public class DosFilter implements Filter {
-    private final int MAX_REQUEST_COUNT = 10;
-    private final int INTERVAL_IN_MILLISECONDS = 5 * 1000;
-    private final Integer WAIT_INTERVAL_IN_MILLISECONDS = 10 * 1000;
-    private final int MILLISECONDS_IN_SECOND = 1000;
-    private final Integer TOO_MANY_REQUESTS_ERROR = 429;
+
     private boolean accessAllowed = true;
     private Timer timer, errorTimer;
     private TimerTask task, errorTask;
     private String address;
-    private String WAIT_ATTRIBUTE_NAME = "wait";
+
+    private Integer waitInterval;
+    private Integer interval;
+    private Integer maxRequestCount;
+
 
     private Map requestCountMap = Collections.synchronizedMap(new HashMap<>());
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        try {
+            waitInterval = Integer.parseInt(filterConfig.getInitParameter(ERROR_TIMER_PARAM_NAME));
+            interval = Integer.parseInt(filterConfig.getInitParameter(TIMER_PARAM_NAME));
+            maxRequestCount = Integer.parseInt(filterConfig.getInitParameter(MAX_REQUEST_PARAM_NAME));
+            if(waitInterval == null || interval == null || maxRequestCount == null) {
+                throw new NoSuchFieldException();
+            }
+        }
+        catch (NumberFormatException | NoSuchFieldException e) {
+            waitInterval = DEFAULT_WAIT_INTERVAL_IN_MILLISECONDS;
+            interval = DEFAULT_INTERVAL_IN_MILLISECONDS;
+            maxRequestCount = DEFAULT_MAX_REQUEST_COUNT;
+        }
         update();
     }
 
@@ -31,7 +44,7 @@ public class DosFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
         servletRequest.setCharacterEncoding(ENCODING);
-        servletRequest.setAttribute(WAIT_ATTRIBUTE_NAME,WAIT_INTERVAL_IN_MILLISECONDS / MILLISECONDS_IN_SECOND);
+        servletRequest.setAttribute(WAIT_ATTRIBUTE_NAME, waitInterval / MILLISECONDS_IN_SECOND);
 
         if (!accessAllowed) {
             destroyTimer(errorTimer,errorTask);
@@ -48,7 +61,7 @@ public class DosFilter implements Filter {
 
             requestCountMap.put(address, count);
 
-            if (count.intValue() > MAX_REQUEST_COUNT) {
+            if (count.intValue() > maxRequestCount) {
 
                 accessAllowed = false;
 
@@ -79,7 +92,7 @@ public class DosFilter implements Filter {
                 }
             }
         };
-        timer.scheduleAtFixedRate(task, INTERVAL_IN_MILLISECONDS, INTERVAL_IN_MILLISECONDS);
+        timer.scheduleAtFixedRate(task, interval, interval);
     }
 
     private void updateErrorTimer(ServletResponse response) {
@@ -95,7 +108,7 @@ public class DosFilter implements Filter {
                 update();
             }
         };
-        errorTimer.scheduleAtFixedRate(errorTask, WAIT_INTERVAL_IN_MILLISECONDS, WAIT_INTERVAL_IN_MILLISECONDS);
+        errorTimer.scheduleAtFixedRate(errorTask, waitInterval, waitInterval);
     }
 
     private void destroyTimer(Timer timer,TimerTask timerTask) {
