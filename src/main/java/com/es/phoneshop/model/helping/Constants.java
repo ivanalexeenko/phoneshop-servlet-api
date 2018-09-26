@@ -28,6 +28,16 @@ public class Constants {
     public static final String NAME_ATTRIBUTE_NAME = "name";
     public static final String ADDRESS_ATTRIBUTE_NAME = "address";
     public static final String PHONE_ATTRIBUTE_NAME = "phone";
+    public static final String WAIT_ATTRIBUTE_NAME = "wait";
+    public static final String TIMER_PARAM_NAME = "timerInterval";
+    public static final String ERROR_TIMER_PARAM_NAME = "errorTimerInterval";
+    public static final String MAX_REQUEST_PARAM_NAME = "maxRequestCount";
+
 
     public static final int MAX_SESSION_TIMEOUT_IN_SECONDS = 20 * 60;
+    public static final int MILLISECONDS_IN_SECOND = 1000;
+    public static final int DEFAULT_MAX_REQUEST_COUNT = 10;
+    public static final int DEFAULT_INTERVAL_IN_MILLISECONDS = 5 * 1000;
+    public static final Integer DEFAULT_WAIT_INTERVAL_IN_MILLISECONDS = 10 * 1000;
+    public static final Integer TOO_MANY_REQUESTS_ERROR = 429;
 }

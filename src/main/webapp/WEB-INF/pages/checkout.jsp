@@ -9,6 +9,9 @@
 <jsp:useBean id="errorHead" type="java.lang.Integer" scope="request"/>
 <jsp:useBean id="error" type="java.lang.Integer" scope="request"/>
 
+<jsp:useBean id="name" scope="session" class="java.lang.String"/>
+<jsp:useBean id="address" scope="session" class="java.lang.String"/>
+<jsp:useBean id="phone" scope="session" class="java.lang.String"/>
 <jsp:useBean id="isError" type="java.lang.Boolean" scope="session"/>
 
 <html>
@@ -44,17 +47,17 @@
             <form method="post" class="w3-container w3-">
                 <p>
                     <label class="w3-text-black"><b>Name:</b>
-                        <input class="w3-input w3-border" name="name" type="text">
+                        <input class="w3-input w3-border" name="name" value="${empty name ? "" : name}" type="text">
                     </label>
                 </p>
                 <p>
                     <label class="w3-text-black"><b>Address:</b>
-                        <input class="w3-input w3-border" name="address" type="text">
+                        <input class="w3-input w3-border" name="address" value="${empty address ? "" : address}" type="text">
                     </label>
                 </p>
                 <p>
                     <label class="w3-text-black"><b>Phone:</b>
-                        <input class="w3-input w3-border" name="phone" type="text">
+                        <input class="w3-input w3-border" name="phone" value="${empty phone ? "" : phone}" type="text">
                     </label>
                 </p>
                 <input class="w3-left w3-button w3-teal w3-xlarge w3-round-xxlarge" type="submit" value="Place">

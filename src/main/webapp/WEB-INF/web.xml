@@ -70,6 +70,18 @@
     <filter>
         <filter-name>dosFilter</filter-name>
         <filter-class>com.es.phoneshop.web.filter.DosFilter</filter-class>
+        <init-param>
+            <param-name>timerInterval</param-name>
+            <param-value>10000</param-value>
+        </init-param>
+        <init-param>
+            <param-name>errorTimerInterval</param-name>
+            <param-value>15000</param-value>
+        </init-param>
+        <init-param>
+            <param-name>maxRequestCount</param-name>
+            <param-value>20</param-value>
+        </init-param>
     </filter>
 
     <filter-mapping>
