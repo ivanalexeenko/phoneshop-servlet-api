@@ -10,6 +10,9 @@
         <i>
             <a href="${pageContext.request.contextPath}/cart"><img src="https://cdn3.iconfinder.com/data/icons/ikooni-flat-online-shopping/128/shopping-14-512.png" alt="Cart Page" width="50px" height="50px"></a>
         </i>
+        <i>
+            <a href="${pageContext.request.contextPath}/compare"><img src="https://cdn4.iconfinder.com/data/icons/business-intelligence/500/07-512.png" alt="Comparison Page" width="50px" height="50px"></a>
+        </i>
     </div>
 </header>
 </html>

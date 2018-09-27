@@ -29,7 +29,6 @@ public class CartPageServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getSession().setMaxInactiveInterval(MAX_SESSION_TIMEOUT_IN_SECONDS);
 
         handleSession(request);
 

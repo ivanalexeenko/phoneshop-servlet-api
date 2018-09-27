@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.es.phoneshop.model.helping.Constants.*;
 
@@ -42,6 +44,24 @@ public class ProductDetailsPageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        if(request.getParameter("compare") != null) {
+            List<Product> list = (ArrayList<Product>) request.getSession().getAttribute(COMPARISON_LIST_ATTRIBUTE_NAME);
+            if(list == null) {
+                list = new ArrayList<>();
+            }
+            Long id = getProductId(request);
+            try {
+                Product compareProduct = productDao.getProduct(id);
+                if(!list.contains(compareProduct)) {
+                    list.add(compareProduct);
+                }
+                request.getSession().setAttribute(COMPARISON_LIST_ATTRIBUTE_NAME,list);
+            } catch (CommonException ignored) {
+
+            }
+            response.sendRedirect(request.getRequestURI());
+            return;
+        }
         Long productId = getProductId(request);
         Product product = null;
         Integer messageCode = ApplicationMessage.DEFAULT_CODE.getCode();

@@ -58,6 +58,16 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>compare</servlet-name>
+        <servlet-class>com.es.phoneshop.web.servlet.CompareProductsPage</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>compare</servlet-name>
+        <url-pattern>/compare</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>orderOverview</servlet-name>
         <servlet-class>com.es.phoneshop.web.servlet.OrderOverviewPageServlet</servlet-class>
     </servlet>

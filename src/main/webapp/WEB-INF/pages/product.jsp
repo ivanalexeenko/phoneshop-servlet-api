@@ -58,7 +58,10 @@
             <th>Stock</th>
             <th>Quantity</th>
             <th>
-                <input class="w3-button w3-teal w3-round-xxlarge" type="submit" value="Add to Cart">
+                <input class="w3-button w3-teal w3-round-xxlarge" name="add" type="submit" value="Add to Cart">
+            </th>
+            <th>
+                <input class="w3-button w3-teal w3-round-xxlarge" name="compare" type="submit" value="Add For Comparison">
             </th>
         </tr>
         <tr>
@@ -74,6 +77,7 @@
                            value="${empty quantity ? 1 : quantity}" style="text-align: right">
                 </label>
             </td>
+            <td></td>
             <td></td>
         </tr>
     </table>

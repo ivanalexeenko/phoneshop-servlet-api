@@ -32,6 +32,11 @@ public class Constants {
     public static final String TIMER_PARAM_NAME = "timerInterval";
     public static final String ERROR_TIMER_PARAM_NAME = "errorTimerInterval";
     public static final String MAX_REQUEST_PARAM_NAME = "maxRequestCount";
+    public static final String IS_SEARCHING_ATTRIBUTE_NAME = "isSearching";
+    public static final String SEARCH_LIST_ATTRIBUTE_NAME = "searchList";
+    public static final String SEARCH_ATTRIBUTE_NAME = "search";
+    public static final String SEARCH_FIELD_PARAM_NAME = "searchField";
+    public static final String COMPARISON_LIST_ATTRIBUTE_NAME = "comparisonList";
 
 
     public static final int MAX_SESSION_TIMEOUT_IN_SECONDS = 20 * 60;
