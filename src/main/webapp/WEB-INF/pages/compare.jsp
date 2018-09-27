@@ -1,7 +1,7 @@
 1<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="comparisonList" scope="session" type="java.util.ArrayList<com.es.phoneshop.model.product.Product>"/>
+<jsp:useBean id="comparisonList" scope="session" class="java.util.ArrayList"/>
 
 <html>
 <head>
